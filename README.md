@@ -89,7 +89,7 @@ Then:
 
 will create this file - `logs/example_1_count.log`, and each time the containing file is opened it will increment the count in that `log` file.
 
-Let's say you have a README in your repository named `My Repo'. First add it to the `counters.json` file like this:
+Let's say you have a README in your repository named `My Repo`. First add it to the `counters.json` file like this:
 
 ```
 {
@@ -106,7 +106,18 @@ And to count use this:
 
 **`<img src="http://[your-server]/[some-folder]/mdcount.php?id=My_Repo">`**
 
-**NOTE:** Replace any spaces with an underscore. The IDs can be mixed case because they are converted to lower case before they're checked.
+**NOTE:** Replace any spaces with an underscore. The incoming IDs and those in the `counters.json` file can be mixed case because they are converted to lower case before they're checked.
+
+## Things that Trigger the Counter
+
+Other than a "normal view" here are somethings that will trigger the counter:
+
+* WYSIWYG markdown editors. Each time you open the markdown file it will trigger a count.
+* Refreshing GitHub repository main page while viewing it.
+
+## Potential Enhancements
+
+* Check the IP address of the viewer, if found in a configurable *known IP list* the count is not incremented.
 
 # Conclusion
 
