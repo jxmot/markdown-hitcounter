@@ -106,7 +106,7 @@ And to count use this:
 
 **`<img src="http://[your-server]/[some-folder]/mdcount.php?id=My_Repo">`**
 
-**NOTE:** Replace any spaces with an underscore.
+**NOTE:** Replace any spaces with an underscore. The IDs can be mixed case because they are converted to lower case before they're checked.
 
 # Conclusion
 
