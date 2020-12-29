@@ -106,7 +106,9 @@ And to count use this:
 
 **`<img src="http://[your-server]/[some-folder]/mdcount.php?id=My_Repo">`**
 
-**NOTE:** Replace any spaces with an underscore. The incoming IDs and those in the `counters.json` file can be mixed case because they are converted to lower case before they're checked.
+The resulting file will be `logs/my_repo_count.log`.
+
+**NOTE:** Replace any spaces with an underscore or hyphen. The incoming IDs and those in the `counters.json` file can be mixed case because they are converted to lower case before they're checked.
 
 ## Things that Trigger the Counter
 
