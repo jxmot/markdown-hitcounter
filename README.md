@@ -112,3 +112,5 @@ And to count use this:
 
 This was an interesting afternoon project. I created it because I could not find *exactly* what I needed in the many hit counters out there.
 
+---
+<img src="http://webexperiment.info/extcounter/mdcount.php?id=markdown-hitcounter">
