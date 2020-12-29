@@ -69,7 +69,7 @@ $imgcontent = file_get_contents($imgfile);
 
 // all good, all of the time
 header('HTTP/1.0 200 OK');
-// hopefully the image isn't cached so that the counter is correct
+// hopefully the image won't be cached so that the counter is correct
 header('Expires: Thu, 1 Jul 1970 00:00:00 GMT');
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); 
 header('Cache-Control: no-store, no-cache, must-revalidate'); 
