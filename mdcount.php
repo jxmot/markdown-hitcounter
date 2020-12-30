@@ -12,7 +12,7 @@
 // MUST be done like this for PHP files that are 'linked'
 $queries = array();
 parse_str($_SERVER['QUERY_STRING'], $queries);
-$_id = $queries['id'];
+$_id = (isset($queries['id']) ? $queries['id'] : null);
 
 // image files, replace with your own if you like
 $testimg  = './test-246x246.png';    // for testing, use ?id=testtest
