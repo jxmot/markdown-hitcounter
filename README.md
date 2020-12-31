@@ -111,6 +111,22 @@ The resulting file will be `logs/my_repo_count.log`.
 
 **NOTE:** Replace any spaces with an underscore or hyphen. The incoming IDs and those in the `counters.json` file can be mixed case because they are converted to lower case before they're checked.
 
+### Edit `images.json` (*optional*)
+
+The `images.json` file contains the file names of the PNG files and their path *relative* to the sub-folder where you placed the images and `mdcounter.php`. 
+
+```
+{
+    "path": "./",
+    "testimg": "test-246x246.png",
+    "countimg": "blank-10x10.png",
+    "errimg": "id_err.png",
+    "oopsimg": "id_oops.png"
+}
+```
+
+The `"path": "./"` member may also be edited if necessary. 
+
 ## Things that Trigger the Counter
 
 Other than a "normal view" here are somethings that will trigger the counter:

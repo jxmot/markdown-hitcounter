@@ -14,16 +14,15 @@ $queries = array();
 parse_str($_SERVER['QUERY_STRING'], $queries);
 $_id = (isset($queries['id']) ? $queries['id'] : null);
 
+$imgs = json_decode(file_get_contents('./images.json'));
 // image files, replace with your own if you like
-$testimg  = './test-246x246.png';    // for testing, use ?id=testtest
-$countimg = './blank-10x10.png';    // normal use, ?id=[must be in counters.json]
-$errorimg = './err-10x10.png';      // an error occured, no id or a bad id
-
+$testimg  = $imgs->path . $imgs->testimg;     // for testing, use ?id=testtest
+$countimg = $imgs->path . $imgs->countimg;    // normal use, ?id=[must be in counters.json]
 // some rather obvious error message images, they're 1500x1500
-$errimg   = './id_err.png';
-$oopsimg  = './id_oops.png';
+$errimg   = $imgs->path . $imgs->errimg;      // id was not found in the list
+$oopsimg  = $imgs->path . $imgs->oopsimg;     // "?id=..." is missing, no query found
 
-$imgfile = null;
+$imgfile  = null;
 
 if(isset($_id)) {
     $id = strtolower($_id);
