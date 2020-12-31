@@ -1,0 +1,7 @@
+{
+    "path": "./",
+    "testimg": "test-246x246.png",
+    "countimg": "blank-10x10.png",
+    "errimg": "id_err.png",
+    "oopsimg": "id_oops.png"
+}  
