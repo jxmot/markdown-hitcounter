@@ -138,6 +138,10 @@ Other than a "normal view" here are somethings that will trigger the counter:
 
 * Check the IP address of the viewer, if found in a configurable *known IP list* the count is not incremented.
   * **NOTE**: When a markdown file with this hit counter is viewed *through* GitHub the IP address will always be within a specific range owned by GitHub.
+  
+## Other Uses
+
+You could count just about anything. All you need is to do a GET of `mdcount.php` with a proper query and you got it!
 
 # Conclusion
 
