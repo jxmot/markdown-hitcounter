@@ -5,7 +5,9 @@ This counter is intended for use in GitHub README markdown files. It has the fol
 * It is accessed in a `<img>` tag in the markdown file.
 * It will only count for specified IDs. IDs are a means to identify which README was viewed. 
 * It does **not** display the current count. This is intentional.
-* It's *small*, less than **120kb** in size.
+* It's *small*, less than **115kb** in size.
+  * Code + JSON = **~4k**
+  * Images = **~111k** - The only reason it's this big is because of the "error" images, they're supposed to be obvious. The actual image that used in counting is less than 1k in size.
 
 ## Run Time Requirements
 
@@ -138,6 +140,7 @@ Other than a "normal view" here are somethings that will trigger the counter:
 
 * Check the IP address of the viewer, if found in a configurable *known IP list* the count is not incremented.
   * **NOTE**: When a markdown file with this hit counter is viewed *through* GitHub the IP address will always be within a specific range owned by GitHub.
+  * One of my other utilites, [getfqdnip](https://github.com/jxmot/getfqdnip) could be part of the solution.
   
 ## Other Uses
 
