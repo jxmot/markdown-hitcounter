@@ -11,19 +11,20 @@ function tzone() {
     return $tmp->tz;
 }
 
+// create the log output folder if it does not exist
 if(!file_exists('./logs')) {
     mkdir('./logs', 0777, true);
 }
 define('LOG_FOLDER', './logs/');
 
-// NOTE: You must create a folder called "logs" in the same folder where 
-// you have placed this file.
-//
 // MUST be done like this for PHP files that are 'linked'
+// like this - <img src="http://[your-server]/[some-folder]/mdcount.php?id=example_1">
 $queries = array();
 parse_str($_SERVER['QUERY_STRING'], $queries);
 $_id = (isset($queries['id']) ? $queries['id'] : null);
 
+// read the image map and assemble the path+file
+// for each image.
 $imgs = json_decode(file_get_contents('./images.json'));
 // image files, replace with your own if you like
 $testimg  = $imgs->path . $imgs->testimg;     // for testing, use ?id=testtest
@@ -52,17 +53,19 @@ class logdata {
     public $dtime = array('19700101','000001');
 }
 
+// did we get a counter ID?
 if(isset($_id)) {
     $id = strtolower($_id);
     $_idlist = json_decode(file_get_contents('./counters.json'));
     $idlist = array_map('strtolower', $_idlist->valid);
+    // is the counter ID known?
     if(in_array($id, $idlist)) {
         // build the log file name from the ID and "_count.log"
         $counter = $id . '_count.json';
         // if testing put the "testtest" log elsewhere
         if($id === 'testtest') $cntpath = './';
         else $cntpath = LOG_FOLDER;
-        // path + file
+        // path + counter file
         $cntfile = $cntpath . $counter;
         
         $data = new stdClass();
@@ -90,11 +93,11 @@ if(isset($_id)) {
             // opens a file to contain the new hit number
             $filecnt = fopen($cntfile,'w');
         }
-
+        // fill in the new count and time...
         $data->ldata->time = time();
         $dt = new DateTime('now', new DateTimeZone(tzone()));
         $data->ldata->dtime = array($dt->format('Ymd'), $dt->format('His'));
-
+        // save, flush and close the file
         fwrite($filecnt, json_encode($data->ldata));
         fflush($filecnt);
         fclose($filecnt);
@@ -106,7 +109,7 @@ if(isset($_id)) {
 
 $imgcontent = file_get_contents($imgfile);
 
-// all good, all of the time
+// all good, all of the time, an image will always be returned
 header('HTTP/1.0 200 OK');
 // hopefully the image won't be cached so that the counter is correct
 header('Expires: Thu, 1 Jul 1970 00:00:00 GMT');
