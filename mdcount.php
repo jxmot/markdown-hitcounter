@@ -6,8 +6,10 @@
 //      and add IDs. They can be most any string(within reason) and are
 //      case insensitive. 
 //
-require_once './php/timezone.php';
-require_once './php/rightnow.php';
+function tzone() {
+    $tmp = json_decode(file_get_contents('./tzone.json'));
+    return $tmp->tz;
+}
 
 if(!file_exists('./logs')) {
     mkdir('./logs', 0777, true);
@@ -72,8 +74,6 @@ if(isset($_id)) {
             $filecnt = fopen($cntfile,'w');
             // initialize the counter file
             $data->ldata->count = 1;
-            $data->ldata->time = time();
-            $data->ldata->dtime = rightnow('arr');
         } else {
             // the file exists, open it, read it, close it,
             // increment the count, open it again, write it, 
@@ -87,11 +87,14 @@ if(isset($_id)) {
             $data->ldata = json_decode($json);
             // update the data...
             $data->ldata->count = $data->ldata->count + 1;
-            $data->ldata->time = time();
-            $data->ldata->dtime = rightnow('arr');
             // opens a file to contain the new hit number
             $filecnt = fopen($cntfile,'w');
         }
+
+        $data->ldata->time = time();
+        $dt = new DateTime('now', new DateTimeZone(tzone()));
+        $data->ldata->dtime = array($dt->format('Ymd'), $dt->format('His'));
+
         fwrite($filecnt, json_encode($data->ldata));
         fflush($filecnt);
         fclose($filecnt);
