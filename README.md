@@ -64,6 +64,23 @@ The images are large *on purpose*. They're meant to be obvious when something is
 
 Each of the `*.log` files should have a count of **`1`** in them.
 
+## Counter Log Files
+
+The counter log files will be found in the folder `./logs`. They are JSON formatted and contain the current cound and the date and time of the visit. 
+
+Here is an example:
+
+```
+{
+  "count": 2,
+  "time": 1616961746,
+  "dtime": [
+    "20210328",
+    "150226"
+  ]
+}
+```
+
 ## Markdown Usage
 
 Use within a GitHub markdown file is easy. You cah add the counter to a `README.md` file or any other `*.md` file in any of your repositories.
