@@ -6,6 +6,14 @@
 //      and add IDs. They can be most any string(within reason) and are
 //      case insensitive. 
 //
+require_once './php/timezone.php';
+require_once './php/rightnow.php';
+
+if(!file_exists('./logs')) {
+    mkdir('./logs', 0777, true);
+}
+define('LOG_FOLDER', './logs/');
+
 // NOTE: You must create a folder called "logs" in the same folder where 
 // you have placed this file.
 //
@@ -24,41 +32,70 @@ $oopsimg  = $imgs->path . $imgs->oopsimg;     // "?id=..." is missing, no query 
 
 $imgfile  = null;
 
+/*
+    Counter file contents:
+
+    {
+        "log": {
+            "count": 1,
+            "time": 1616952000,
+            dtime: ["20210328","122000"]
+        }
+    }
+
+*/
+class logdata {
+    public $count = 0;
+    public $time = 0;
+    public $dtime = array('19700101','000001');
+}
+
 if(isset($_id)) {
     $id = strtolower($_id);
     $_idlist = json_decode(file_get_contents('./counters.json'));
     $idlist = array_map('strtolower', $_idlist->valid);
     if(in_array($id, $idlist)) {
         // build the log file name from the ID and "_count.log"
-        $counter = $id . '_count.log';
+        $counter = $id . '_count.json';
         // if testing put the "testtest" log elsewhere
         if($id === 'testtest') $cntpath = './';
-        else $cntpath = './logs/';
+        else $cntpath = LOG_FOLDER;
         // path + file
         $cntfile = $cntpath . $counter;
+        
+        $data = new stdClass();
+        $data->ldata = new logdata();
+        
         // if the counter file doesn't exist then create 
         // it and set it to 1, write the file and close it
         if(!file_exists($cntfile)) {
             $filecnt = fopen($cntfile,'w');
-            fwrite($filecnt, '1');
-            fflush($filecnt);
-            fclose($filecnt);
+            // initialize the counter file
+            $data->ldata->count = 1;
+            $data->ldata->time = time();
+            $data->ldata->dtime = rightnow('arr');
         } else {
             // the file exists, open it, read it, close it,
             // increment the count, open it again, write it, 
             // and finally close it
             $filecnt = fopen($cntfile,'r');
-            // get 64 characters, it's unlikely that counter
+            // get 128 characters, it's unlikely that counter
             // would get that big.
-            $count   = fgets($filecnt,64);
+            $json   = fgets($filecnt,128);
             fclose($filecnt);
-            $count=$count + 1 ;
+            // JSON -> object
+            $data->ldata = json_decode($json);
+            // update the data...
+            $data->ldata->count = $data->ldata->count + 1;
+            $data->ldata->time = time();
+            $data->ldata->dtime = rightnow('arr');
             // opens a file to contain the new hit number
             $filecnt = fopen($cntfile,'w');
-            fwrite($filecnt, $count);
-            fflush($filecnt);
-            fclose($filecnt);
         }
+        fwrite($filecnt, json_encode($data->ldata));
+        fflush($filecnt);
+        fclose($filecnt);
+
         // if testing use an image that is easily seen
         $imgfile = ($id === 'testtest' ? $testimg : $countimg);
     } else $imgfile = $errimg;
