@@ -39,13 +39,13 @@ $imgfile  = null;
     Counter file contents:
 
     {
-        "log": {
-            "count": 1,
-            "time": 1616952000,
-            dtime: ["20210328","122000"]
-        }
+        "count": 2,
+        "time": 1616961746,
+        "dtime": [
+            "20210328",
+            "150226"
+        ]
     }
-
 */
 class logdata {
     public $count = 0;
