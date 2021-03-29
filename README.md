@@ -64,6 +64,23 @@ The images are large *on purpose*. They're meant to be obvious when something is
 
 Each of the `*.log` files should have a count of **`1`** in them.
 
+## Counter Log Files
+
+The counter log files will be found in the folder `./logs`. They are JSON formatted and contain the current cound and the date and time of the visit. 
+
+Here is an example:
+
+```
+{
+  "count": 2,
+  "time": 1616961746,
+  "dtime": [
+    "20210328",
+    "150226"
+  ]
+}
+```
+
 ## Markdown Usage
 
 Use within a GitHub markdown file is easy. You cah add the counter to a `README.md` file or any other `*.md` file in any of your repositories.
@@ -135,6 +152,85 @@ Other than a "normal view" here are somethings that will trigger the counter:
 
 * WYSIWYG markdown editors. Each time you open the markdown file it will trigger a count.
 * Refreshing GitHub repository main page while viewing it.
+
+## Count Report Retrieval
+
+It is possible to retrieve the counter data for a single counter or for all of them. This can be accomplished with - 
+
+**Return data for a specific counter -**
+
+```
+GET http[s]://your-server/path-to-file/mdcountdata.php?id=testtest
+```
+
+
+**Return data for all counters -**
+
+```
+GET http[s]://your-server/path-to-file/mdcountdata.php
+```
+
+The data is returned in JSON - 
+
+```
+[
+    {
+        "id": "sensornet",
+        "data": {
+            "count": 30,
+            "time": 1616458038,
+            "dtime": [
+                "20210322",
+                "190718"
+            ]
+        }
+    },
+    {
+        "id": "test",
+        "data": {
+            "count": 1,
+            "time": 1616458038,
+            "dtime": [
+                "20210322",
+                "190718"
+            ]
+        }
+    }
+]
+
+```
+
+**Sorting Counter Data -**
+
+The counter data can be sorted by **`count`** before returning it to the caller.
+
+The data is returned in ascending order -
+
+```
+GET http[s]://your-server/path-to-file/mdcountdata.php?sort=q
+```
+
+The data is returned in descending order -
+
+```
+GET http[s]://your-server/path-to-file/mdcountdata.php?sort=d
+```
+
+**Errors -**
+
+If an error occurs it is also returned in JSON - 
+
+```
+GET http[s]://your-server/path-to-file/mdcountdata.php?id=BLAH
+
+
+[
+    {
+        "error": true,
+        "msg": "BLAH not found in ./counters.json"
+    }
+]
+```
 
 ## Potential Enhancements
 
