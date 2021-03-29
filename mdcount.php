@@ -1,11 +1,15 @@
 <?php
-// Usage:
-//      <img src="http[s]://your-server/path-to-file/mdcount.php?id=testtest">
-//
-//      Use the "?id=testtest" query for testing, then edit counters.json 
-//      and add IDs. They can be most any string(within reason) and are
-//      case insensitive. 
-//
+/*
+    Usage:
+        <img src="http[s]://your-server/path-to-file/mdcount.php?id=testtest">
+    
+        Use the "?id=testtest" query for testing, then edit counters.json 
+        and add IDs. They can be most any string(within reason) and are
+        case insensitive. 
+    
+*/
+
+// get our configured time zone
 function tzone() {
     $tmp = json_decode(file_get_contents('./tzone.json'));
     return $tmp->tz;
