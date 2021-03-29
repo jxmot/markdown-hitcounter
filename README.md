@@ -207,14 +207,20 @@ The counter data can be sorted by **`count`** before returning it to the caller.
 The data is returned in ascending order -
 
 ```
-GET http[s]://your-server/path-to-file/mdcountdata.php?sort=a
+GET http[s]://your-server/path-to-file/mdcountdata.php?csort=a
 ```
 
 The data is returned in descending order -
 
 ```
-GET http[s]://your-server/path-to-file/mdcountdata.php?sort=d
+GET http[s]://your-server/path-to-file/mdcountdata.php?csort=d
 ```
+
+One of the following sorts can be chosen:
+
+* `csort` - sort by count value
+* `tsort` - sort by time of last hit
+* `isort` - sort by counter ID
 
 **Errors -**
 
