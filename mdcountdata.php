@@ -86,8 +86,8 @@ if($id !== null) {
         $result = '[{"error":true,"msg":"['.$id.'] not found in '.VALID_COUNTERS.'"}]';
     }
 } else {
-    $out = '';
     $ix = 0;
+    $out = '[';
     foreach($idlist as $id) {
         // build the log file name from the ID and "_count.log"
         //$counter = $id . '_count.json';
