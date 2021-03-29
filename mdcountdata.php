@@ -39,23 +39,84 @@ class logdata {
 }
 
 define('VALID_COUNTERS', './counters.json');
+define('LOG_FOLDER', './logs/');
 
 function tzone() {
     $tmp = json_decode(file_get_contents('./tzone.json'));
     return $tmp->tz;
 }
 
-define('LOG_FOLDER', './logs/');
+function countsort($sort, $out) {
+    $data = json_decode($out);
+    // ascending
+    if($sort === 'a' || $sort === '') {
+        usort($data, function($a, $b) {
+            if ($a->data->count === $b->data->count) return 0;
+            return (($a->data->count < $b->data->count)?-1:1);
+        });
+    }
+    // descending
+    if($sort === 'd') {
+        usort($data, function($a, $b) {
+            if ($a->data->count === $b->data->count) return 0;
+            return (($a->data->count > $b->data->count)?-1:1);
+        });
+    }
+    // done!
+   return json_encode($data);
+}
+
+function timesort($sort, $out) {
+    $data = json_decode($out);
+    // ascending
+    if($sort === 'a' || $sort === '') {
+        usort($data, function($a, $b) {
+            if ($a->data->time === $b->data->time) return 0;
+            return (($a->data->time < $b->data->time)?-1:1);
+        });
+    }
+    // descending
+    if($sort === 'd') {
+        usort($data, function($a, $b) {
+            if ($a->data->time === $b->data->time) return 0;
+            return (($a->data->time > $b->data->time)?-1:1);
+        });
+    }
+    // done!
+   return json_encode($data);
+}
+
+function idsort($sort, $out) {
+    $data = json_decode($out);
+    // ascending
+    if($sort === 'a' || $sort === '') {
+        usort($data, function($a, $b) {
+            if ($a->id === $b->id) return 0;
+            return (($a->id < $b->id)?-1:1);
+        });
+    }
+    // descending
+    if($sort === 'd') {
+        usort($data, function($a, $b) {
+            if ($a->id === $b->id) return 0;
+            return (($a->id > $b->id)?-1:1);
+        });
+    }
+    // done!
+   return json_encode($data);
+}
 
 // MUST be done like this for PHP files that are 'linked'
 $queries = array();
 
 parse_str($_SERVER['QUERY_STRING'], $queries);
-$id   = (isset($queries['id'])   ? strtolower($queries['id'])   : null);
-$sort = (isset($queries['sort']) ? strtolower($queries['sort']) : null);
+$id    = (isset($queries['id'])    ? strtolower($queries['id'])    : null);
+$csort = (isset($queries['csort']) ? strtolower($queries['csort']) : null);
+$tsort = (isset($queries['tsort']) ? strtolower($queries['tsort']) : null);
+$isort = (isset($queries['isort']) ? strtolower($queries['isort']) : null);
 
-//$id   = null;
-//$sort = 'd';
+//$id    = null;
+//$csort = 'd';
 
 $_idlist = json_decode(file_get_contents(VALID_COUNTERS));
 $idlist  = array_map('strtolower', $_idlist->valid);
@@ -110,26 +171,21 @@ if($id !== null) {
     $out = $out . ']';
 
     // is sorting selected?
-    if($sort !== null) {
-        $data = json_decode($out);
-
-        // ascendind
-        if($sort === 'a' || $sort === '') {
-            usort($data, function($a, $b) {
-                if ($a->data->count === $b->data->count) return 0;
-                return (($a->data->count < $b->data->count)?-1:1);
-            });
-        }
-        // descending
-        if($sort === 'd') {
-            usort($data, function($a, $b) {
-                if ($a->data->count === $b->data->count) return 0;
-                return (($a->data->count > $b->data->count)?-1:1);
-            });
-        }
-        // done!
-        $out = json_encode($data);
+    if($csort !== null) {
+        // by count
+        $out = countsort($csort, $out);
     }
+
+    if($tsort !== null) {
+        // by time
+        $out = timesort($tsort, $out);
+    }
+
+    if($isort !== null) {
+        // by ID
+        $out = idsort($isort, $out);
+    }
+
     $result = $out;
 }
 header("HTTP/1.0 200 OK");
