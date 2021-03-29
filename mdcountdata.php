@@ -130,8 +130,6 @@ if($id !== null) {
         // path + counter file
         $cntfile = LOG_FOLDER . $counter;
 
-        $data = new stdClass();
-        $data->ldata = new logdata();
         if(file_exists($cntfile)) {
             $filecnt = fopen($cntfile,'r');
             // get 128 characters, it's unlikely that counter
