@@ -153,6 +153,67 @@ Other than a "normal view" here are somethings that will trigger the counter:
 * WYSIWYG markdown editors. Each time you open the markdown file it will trigger a count.
 * Refreshing GitHub repository main page while viewing it.
 
+## Count Report Retrieval
+
+It is possible to retrieve the counter data for a single counter or for all of them. This can be accomplished with - 
+
+**Return data for a specific counter -**
+
+```
+GET http[s]://your-server/path-to-file/mdcountreport.php?id=testtest
+```
+
+
+**Return data for all counters -**
+
+```
+GET http[s]://your-server/path-to-file/mdcountreport.php
+```
+
+The data is returned in JSON - 
+
+```
+[
+    {
+        "id": "sensornet",
+        "data": {
+            "count": 30,
+            "time": 1616458038,
+            "dtime": [
+                "20210322",
+                "190718"
+            ]
+        }
+    },
+    {
+        "id": "test",
+        "data": {
+            "count": 1,
+            "time": 1616458038,
+            "dtime": [
+                "20210322",
+                "190718"
+            ]
+        }
+    }
+]
+
+```
+
+If an error occurs it is also returned in JSON - 
+
+```
+GET http[s]://your-server/path-to-file/mdcountreport.php?id=BLAH
+
+
+[
+    {
+        "error": true,
+        "msg": "BLAH not found in ./counters.json"
+    }
+]
+```
+
 ## Potential Enhancements
 
 * Check the IP address of the viewer, if found in a configurable *known IP list* the count is not incremented.
