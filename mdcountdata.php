@@ -100,7 +100,7 @@ if($id !== null) {
             $json = fgets($filecnt,128);
             fclose($filecnt);
             // add a counter to the array
-            $out = $out . ($ix > 0 ? ',' : '[');
+            $out = $out . ($ix > 0 ? ',' : '');
             $out = $out . '{"id":"'.$id.'","data":';
             $out = $out . $json . '}';
             // only used above to decide if we need a comma
