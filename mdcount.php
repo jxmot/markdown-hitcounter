@@ -89,7 +89,7 @@ if(isset($_id)) {
             // JSON -> object
             $data->ldata = json_decode($json);
             // update the data...
-            $data->ldata->count = $data->ldata->count + 1;
+            $data->ldata->count = intval($data->ldata->count + 1);
             // opens a file to contain the new hit number
             $filecnt = fopen($cntfile,'w');
         }
