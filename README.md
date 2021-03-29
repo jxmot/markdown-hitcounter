@@ -66,7 +66,7 @@ Each of the `*.log` files should have a count of **`1`** in them.
 
 ## Counter Log Files
 
-The counter log files will be found in the folder `./logs`. They are JSON formatted and contain the current cound and the date and time of the visit. 
+The counter log files will be found in the folder `./logs`. They are JSON formatted and contain the current count and the date and time of the visit. 
 
 Here is an example:
 
@@ -153,7 +153,7 @@ Other than a "normal view" here are somethings that will trigger the counter:
 * WYSIWYG markdown editors. Each time you open the markdown file it will trigger a count.
 * Refreshing GitHub repository main page while viewing it.
 
-## Count Report Retrieval
+## Count Data Retrieval
 
 It is possible to retrieve the counter data for a single counter or for all of them. This can be accomplished with - 
 
@@ -207,7 +207,7 @@ The counter data can be sorted by **`count`** before returning it to the caller.
 The data is returned in ascending order -
 
 ```
-GET http[s]://your-server/path-to-file/mdcountdata.php?sort=q
+GET http[s]://your-server/path-to-file/mdcountdata.php?sort=a
 ```
 
 The data is returned in descending order -
