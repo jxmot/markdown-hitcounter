@@ -160,14 +160,14 @@ It is possible to retrieve the counter data for a single counter or for all of t
 **Return data for a specific counter -**
 
 ```
-GET http[s]://your-server/path-to-file/mdcountreport.php?id=testtest
+GET http[s]://your-server/path-to-file/mdcountdata.php?id=testtest
 ```
 
 
 **Return data for all counters -**
 
 ```
-GET http[s]://your-server/path-to-file/mdcountreport.php
+GET http[s]://your-server/path-to-file/mdcountdata.php
 ```
 
 The data is returned in JSON - 
@@ -200,10 +200,28 @@ The data is returned in JSON -
 
 ```
 
+**Sorting Counter Data -**
+
+The counter data can be sorted by **`count`** before returning it to the caller.
+
+The data is returned in ascending order -
+
+```
+GET http[s]://your-server/path-to-file/mdcountdata.php?sort=q
+```
+
+The data is returned in descending order -
+
+```
+GET http[s]://your-server/path-to-file/mdcountdata.php?sort=d
+```
+
+**Errors -**
+
 If an error occurs it is also returned in JSON - 
 
 ```
-GET http[s]://your-server/path-to-file/mdcountreport.php?id=BLAH
+GET http[s]://your-server/path-to-file/mdcountdata.php?id=BLAH
 
 
 [
