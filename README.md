@@ -222,6 +222,18 @@ One of the following sorts can be chosen:
 * `tsort` - sort by time of last hit
 * `isort` - sort by counter ID
 
+**Limiting Number of Counters in Sort -**
+
+It is possible to limit the quantity of counters returned for any of the sorting queries.
+
+```
+GET http[s]://your-server/path-to-file/mdcountdata.php?csort=a|[&limit=[1-n]]
+```
+
+The value of `limit` can be from 1 to **n**. If **n** exceeds the number of counters then all counters will be returned for that sorting choice.
+
+**NOTE** : `limit` only applies to sorting queries.
+
 **Errors -**
 
 If an error occurs it is also returned in JSON - 
