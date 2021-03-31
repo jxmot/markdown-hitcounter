@@ -66,6 +66,10 @@ class logdata {
     public $dtime = array('19700101','000001');
 }
 
+// if false run normally, if true then fake the query
+define('_DEBUG', false);
+
+// counter ID file and output path
 define('VALID_COUNTERS', './counters.json');
 define('LOG_FOLDER', './logs/');
 
@@ -74,27 +78,37 @@ function tzone() {
     return $tmp->tz;
 }
 
+function compasc($a, $b) {
+    return ($a === $b ? 0 : $a < $b ? -1 : 1);
+}
+
+function compdesc($a, $b) {
+    return ($a === $b ? 0 : $a > $b ? -1 : 1);
+}
+
+function limitqty($data, $limit) {
+    if($limit !== null && ($limit > 0 && $limit < count($data))){
+        $data = array_slice($data, 0, $limit);
+    }
+    return $data;
+}
+
 function countsort($sort, $out, $limit = null) {
     $data = json_decode($out);
     // ascending
     if($sort === 'a' || $sort === '') {
         usort($data, function($a, $b) {
-            if ($a->data->count === $b->data->count) return 0;
-            return (($a->data->count < $b->data->count)?-1:1);
+            return compasc($a->data->count, $b->data->count);
         });
     }
     // descending
     if($sort === 'd') {
         usort($data, function($a, $b) {
-            if ($a->data->count === $b->data->count) return 0;
-            return (($a->data->count > $b->data->count)?-1:1);
+            return compdesc($a->data->count, $b->data->count);
         });
     }
     // done!
-    if($limit !== null && ($limit > 0 && $limit < count($data))){
-        $data = array_slice($data, 0, $limit);
-    }
-    return json_encode($data);
+    return json_encode(limitqty($data, $limit));
 }
 
 function timesort($sort, $out, $limit = null) {
@@ -102,22 +116,17 @@ function timesort($sort, $out, $limit = null) {
     // ascending
     if($sort === 'a' || $sort === '') {
         usort($data, function($a, $b) {
-            if ($a->data->time === $b->data->time) return 0;
-            return (($a->data->time < $b->data->time)?-1:1);
+            return compasc($a->data->time, $b->data->time);
         });
     }
     // descending
     if($sort === 'd') {
         usort($data, function($a, $b) {
-            if ($a->data->time === $b->data->time) return 0;
-            return (($a->data->time > $b->data->time)?-1:1);
+            return compdesc($a->data->time, $b->data->time);
         });
     }
     // done!
-    if($limit !== null && ($limit > 0 && $limit < count($data))){
-        $data = array_slice($data, 0, $limit);
-    }
-    return json_encode($data);
+    return json_encode(limitqty($data, $limit));
 }
 
 function idsort($sort, $out, $limit = null) {
@@ -125,43 +134,42 @@ function idsort($sort, $out, $limit = null) {
     // ascending
     if($sort === 'a' || $sort === '') {
         usort($data, function($a, $b) {
-            if ($a->id === $b->id) return 0;
-            return (($a->id < $b->id)?-1:1);
+            return compasc($a->id, $b->id);
         });
     }
     // descending
     if($sort === 'd') {
         usort($data, function($a, $b) {
-            if ($a->id === $b->id) return 0;
-            return (($a->id > $b->id)?-1:1);
+            return compdesc($a->id, $b->id);
         });
     }
     // done!
-    if($limit !== null && ($limit > 0 && $limit < count($data))){
-        $data = array_slice($data, 0, $limit);
-    }
-    return json_encode($data);
+    return json_encode(limitqty($data, $limit));
 }
 
-// MUST be done like this for PHP files that are 'linked'
-$queries = array();
-parse_str($_SERVER['QUERY_STRING'], $queries);
-// return a single counter by ID
-$id    = (isset($queries['id'])    ? strtolower($queries['id'])    : null);
-// return all counters, ordered by count
-$csort = (isset($queries['csort']) ? strtolower($queries['csort']) : null);
-// return all counters, ordered by time of last count
-$tsort = (isset($queries['tsort']) ? strtolower($queries['tsort']) : null);
-// return all counters, ordered by ID
-$isort = (isset($queries['isort']) ? strtolower($queries['isort']) : null);
-// for sorts, limit number of counters returned
-$limit = (isset($queries['limit']) ? $queries['limit'] : null);
-
-//$id    = null;
-//$csort = 'd';
-//$tsort = null;
-//$isort = null;
-//$limit = 1;
+// check for debug mode
+if(!defined('_DEBUG') || _DEBUG === false) {
+    // MUST be done like this for PHP files that are 'linked'
+    $queries = array();
+    parse_str($_SERVER['QUERY_STRING'], $queries);
+    // return a single counter by ID
+    $id    = (isset($queries['id'])    ? strtolower($queries['id'])    : null);
+    // return all counters, ordered by count
+    $csort = (isset($queries['csort']) ? strtolower($queries['csort']) : null);
+    // return all counters, ordered by time of last count
+    $tsort = (isset($queries['tsort']) ? strtolower($queries['tsort']) : null);
+    // return all counters, ordered by ID
+    $isort = (isset($queries['isort']) ? strtolower($queries['isort']) : null);
+    // for sorts, limit number of counters returned
+    $limit = (isset($queries['limit']) ? $queries['limit'] : null);
+} else {
+    // set as needed for testing
+    $id    = null;
+    $csort = 'a';
+    $tsort = null;
+    $isort = null;
+    $limit = 2;
+}
 
 $_idlist = json_decode(file_get_contents(VALID_COUNTERS));
 $idlist  = array_map('strtolower', $_idlist->valid);
