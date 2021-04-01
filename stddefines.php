@@ -32,9 +32,9 @@ if(defined('_DEBUGDEF') && _DEBUGDEF === true) {
     echo 'PHPSELF  : '.PHPSELF."<br>\n";
 
     echo "<br>\n";
-    echo 'HTTPTYPE  : '.HTTPTYPE."<br>\n";
-    echo 'THISSRVR  : '.THISSRVR."<br>\n";
-    echo 'TRUESELF  : '.TRUESELF."<br>\n";
+    echo 'HTTPTYPE : '.HTTPTYPE."<br>\n";
+    echo 'THISSRVR : '.THISSRVR."<br>\n";
+    echo 'TRUESELF : '.TRUESELF."<br>\n";
 
     echo "</strong></p>\n";
     echo "\n";
