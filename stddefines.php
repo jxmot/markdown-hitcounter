@@ -11,10 +11,12 @@ define('DOCROOT',    ((isset($_SERVER['DOCUMENT_ROOT']) === true) ? $_SERVER['DO
 define('PATHTRANS',((isset($_SERVER['PATH_TRANSLATED']) === true) ? $_SERVER['PATH_TRANSLATED'] : 'none'));
 define('PHPSELF',         ((isset($_SERVER['PHP_SELF']) === true) ? $_SERVER['PHP_SELF']        : 'none'));
 
+// used for assembling URLs to resources as needed
 define('HTTPTYPE', ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? 'https://' : 'http://'));
 define('THISSRVR', HTTPTYPE . SRVNAME . pathinfo(PHPSELF)['dirname']);
 define('TRUESELF', THISSRVR . '/' . pathinfo(PHPSELF)['basename']);
 
+// if debug is enabled then show stuff....
 if(defined('_DEBUGDEF') && _DEBUGDEF === true) {
     echo "\n";
     echo "<p><strong>\n";
@@ -30,9 +32,9 @@ if(defined('_DEBUGDEF') && _DEBUGDEF === true) {
     echo 'PHPSELF  : '.PHPSELF."<br>\n";
 
     echo "<br>\n";
-    echo "HTTPTYPE : ".HTTPTYPE."<br>\n";
-    echo "THISSRVR     : ".THISSRVR."<br>\n";
-    echo "TRUESELF     : ".TRUESELF."<br>\n";
+    echo 'HTTPTYPE  : '.HTTPTYPE."<br>\n";
+    echo 'THISSRVR  : '.THISSRVR."<br>\n";
+    echo 'TRUESELF  : '.TRUESELF."<br>\n";
 
     echo "</strong></p>\n";
     echo "\n";
