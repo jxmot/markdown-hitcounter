@@ -3,7 +3,7 @@
 define('_DEBUG', false);
 
 // renders and echoes the defines inside of a <p>
-define('_DEBUGDEF', true);
+define('_DEBUGDEF', false);
 require_once './stddefines.php';
 
 // get the configured time zone
