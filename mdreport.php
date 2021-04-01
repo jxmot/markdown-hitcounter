@@ -2,6 +2,11 @@
 // if false run normally, if true then fake the query
 define('_DEBUG', false);
 
+// renders and echoes the defines inside of a <p>
+define('_DEBUGDEF', true);
+require_once './stddefines.php';
+
+// get the configured time zone
 function tzone() {
     $tmp = json_decode(file_get_contents('./tzone.json'));
     return $tmp->tz;
@@ -10,7 +15,7 @@ function tzone() {
 // check for debug/test mode
 if(!defined('_DEBUG') || _DEBUG === false) {
 
-    $mdcountdata = (isset($queries['mdcdata']) ? strtolower($queries['mdcdata']) : 'http://xampp/tests/uscratch/mdhc/mdcountdata.php');
+    $mdcountdata = (isset($queries['mdcdata']) ? strtolower($queries['mdcdata']) : THISSRVR.'/mdcountdata.php');
 
     // MUST be done like this for PHP files that are 'linked'
     $queries = array();
@@ -29,7 +34,7 @@ if(!defined('_DEBUG') || _DEBUG === false) {
         echo "<p>$q</p>\n";
     }
 
-    $mdcountdata = 'http://xampp/tests/uscratch/mdhc/mdcountdata.php';
+    $mdcountdata = THISSRVR.'/mdcountdata.php';
 
     // set as needed for testing
     $csort = 'd';
