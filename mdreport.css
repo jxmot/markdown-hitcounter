@@ -1,0 +1,35 @@
+div.table-container {
+    width:80%;
+    margin:auto;
+}
+
+tr th {
+    text-align:center;
+}
+
+tr td {
+    text-align:center;
+}
+
+table caption {
+    caption-side:top;
+    text-align:center;
+    color:black;
+    font-weight:bold;
+}
+
+.sort-arrow-up:after {
+    font-weight:bold;
+    content: "\25B2"!important;
+}
+
+.sort-arrow-dn:after {
+    font-weight:bold;
+    content: "\25BC"!important;
+}
+
+.orderhover:hover {
+    cursor:pointer!important;
+    background-color: rgba(189, 183, 137, 1);
+    border-radius: 15px 50px;
+}
