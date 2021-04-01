@@ -12,7 +12,7 @@
     <!-- https://atomiks.github.io/tippyjs/v6/getting-started/ -->
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
-    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css">
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" crossorigin="anonymous">
 
     <!-- https://getbootstrap.com/docs/4.0/getting-started/contents/ -->
     <!-- https://popper.js.org/ -->
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     var sorts = ['?csort=','?isort=','?tsort='];
     var sdirs = ['a','d'];
-    var url = 'http://xampp//tests/uscratch/mdhc/mdreport.php';
+    var url = './mdreport.php';
     var limit = '&limit=10';
     var datasrc = url+sorts[0]+sdirs[0]+limit;
 
