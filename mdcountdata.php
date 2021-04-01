@@ -147,7 +147,7 @@ function idsort($sort, $out, $limit = null) {
     return json_encode(limitqty($data, $limit));
 }
 
-// check for debug mode
+// check for debug/test mode
 if(!defined('_DEBUG') || _DEBUG === false) {
     // MUST be done like this for PHP files that are 'linked'
     $queries = array();
@@ -171,6 +171,7 @@ if(!defined('_DEBUG') || _DEBUG === false) {
     $limit = 2;
 }
 
+// get the valid counter ID list
 $_idlist = json_decode(file_get_contents(VALID_COUNTERS));
 $idlist  = array_map('strtolower', $_idlist->valid);
 
