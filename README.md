@@ -250,12 +250,28 @@ GET http[s]://your-server/path-to-file/mdcountdata.php?id=BLAH
 ]
 ```
 
-## Potential Enhancements
+## Counter Reports
 
-* Check the IP address of the viewer, if found in a configurable *known IP list* the count is not incremented.
-  * **NOTE**: When a markdown file with this hit counter is viewed *through* GitHub the IP address will always be within a specific range owned by GitHub.
-  * One of my other utilites, [getfqdnip](https://github.com/jxmot/getfqdnip) could be part of the solution.
-  
+The following files are used in report generation and viewing:
+
+* `mdreport.php` - Retrieves the counter data and renders a Bootstrap 4.x table.
+  * `mdreport.css` - Additional required CSS for the table
+  * `mdreport-th.txt` - Column heading text
+  * `stddefines.php` - A collection of `define()` that make a number of PHP variables available to the application. It contains components used for creating URLs to resources.
+* `report.html` - The minimum required HTML/CSS and JavaScript/jQuery to render and display the table.
+  * **Other Dependencies** : The "tool tips" used on the column headings are created with [tippy.js](<https://atomiks.github.io/tippyjs/>).
+
+**Report Screen Shot :**
+
+<img src="./mdimg/report_sshot.png" style="border: 2px dashed">
+
+The "Hit Count", "Repository" and "Last Counted" headings can be clicked to select sorting criteria and direction (*ascending vs descending*). When a column heading is clicked the report caption will change to reflect the choice.
+
+**NOTES :**
+* The links in the "Repository" column and built from the IDs found in `counters.json`. The ID text I used there is the *name of the repository* that the counter is intended for. The corresponding counter data files are named `repo-name`**`_counter.json`**.
+* When the report is viewed the data shown is *current*. 
+* If the "Last Counted" column date and time seem to be incorrect then the time zone may need to be changed. Edit the `timezone.json` file to match your time zone.
+ 
 ## Other Uses
 
 You could count just about anything. All you need is to do a GET of `mdcount.php` with a proper query and you got it!
