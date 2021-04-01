@@ -73,11 +73,6 @@ define('_DEBUG', false);
 define('VALID_COUNTERS', './counters.json');
 define('LOG_FOLDER', './logs/');
 
-function tzone() {
-    $tmp = json_decode(file_get_contents('./tzone.json'));
-    return $tmp->tz;
-}
-
 function compasc($a, $b) {
     return ($a === $b ? 0 : $a < $b ? -1 : 1);
 }
