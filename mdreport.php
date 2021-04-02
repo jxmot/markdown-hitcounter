@@ -116,10 +116,40 @@ if(file_exists($thfile)) {
         echo '            <th scope="row">'.($ix+1).'</th>'."\n";
         echo "            <td>".$counters[$ix]->data->count."</td>\n";
         echo '            <td><a target="_blank" href="'.$repohome.$counters[$ix]->id.'" title="'.$linkmsg.'">'.$counters[$ix]->id."</a></td>\n";
-        $when = ''.$counters[$ix]->data->time;
-        $dt = new DateTime("@$when", new DateTimeZone(tzone()));
-        $date = $dt->format('Y/m/d') . '<br>' . $dt->format('H:i:s');
-        unset($dt);
+        // NOTE: This block of code in the top of the if() isn't meant 
+        // to be permanent. As mdcount.php was being developed the format 
+        // of dtime[0] and dtime[1] changed. Originally the formats were
+        // YYYYMMDD(Ymd) and HHMMSS(His), now they're formatted with 
+        // separators. So this is here to "fix" the older counter data 
+        // by inserting the separators here.
+        if( (strpos($counters[$ix]->data->dtime[0],'/') === false) &&
+            (strpos($counters[$ix]->data->dtime[0],'-') === false) && 
+            (strpos($counters[$ix]->data->dtime[0],'.') === false) && 
+            (strpos($counters[$ix]->data->dtime[1],':') === false) ) {
+            // insert the separators...
+            // YYYYMMDD -> YYYYMM-DD
+            $newd = substr_replace($counters[$ix]->data->dtime[0], 
+                                   '-', 
+                                   strlen($counters[$ix]->data->dtime[0]) - 2, 0 );
+            // YYYYMM-DD -> YYYY-MM-DD
+            $newd = substr_replace($newd, 
+                                   '-', 
+                                   strlen($newd) - 5, 0 );
+            // HHMMSS -> HHMM:SS
+            $newt = substr_replace($counters[$ix]->data->dtime[1], 
+                                   ':', 
+                                   strlen($counters[$ix]->data->dtime[1]) - 2, 0 );
+            // HHMM:SS -> HH:MM:SS
+            $newt = substr_replace($newt, 
+                                   ':', 
+                                   strlen($newt) - 5, 0 );
+            // done!
+            $date = $newd . '<br>' . $newt;
+        } else {
+            // already formatted
+            $date = $counters[$ix]->data->dtime[0] . '<br>' . $counters[$ix]->data->dtime[1];
+        }
+
         echo "            <td>".$date."</td>\n";
         echo "        </tr>\n";
     }
