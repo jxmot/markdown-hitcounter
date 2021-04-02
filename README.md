@@ -348,7 +348,7 @@ The "Hit Count", "Repository" and "Last Counted" headings can be clicked to sele
 **A demonstration of the counter report can be seen [here](https://webexperiment.info/portfolio/mdhc/).**
 
 **NOTES :**
-* The links in the "Repository" column and built from the IDs found in `counters.json`. The ID text I used there is the *name of the repository* that the counter is intended for. The corresponding counter data files are named `repo-name`**`_counter.json`**.
+* The links in the "Repository" column are built from the IDs found in `counters.json`. The ID text I used there is the *name of the repository* that the counter is intended for. The corresponding counter data files are named `repo-name`**`_counter.json`**.
 * When the report is viewed the data shown is *current*. 
 * If the "Last Counted" column date and time seem to be incorrect then the time zone may need to be changed. Edit the `timezone.json` file to match your time zone.
  
