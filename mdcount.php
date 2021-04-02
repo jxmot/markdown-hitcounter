@@ -46,15 +46,15 @@ $imgfile  = null;
         "count": 2,
         "time": 1616961746,
         "dtime": [
-            "20210328",
-            "150226"
+            "2021-04-02",
+            "01:07:16"
         ]
     }
 */
 class logdata {
     public $count = 0;
     public $time = 0;
-    public $dtime = array('19700101','000001');
+    public $dtime = array('1970-01-01','00:00:01');
 }
 
 // did we get a counter ID?
@@ -72,15 +72,14 @@ if(isset($_id)) {
         // path + counter file
         $cntfile = $cntpath . $counter;
         
-        $data = new stdClass();
-        $data->ldata = new logdata();
+        $data = new logdata();
         
         // if the counter file doesn't exist then create 
         // it and set it to 1, write the file and close it
         if(!file_exists($cntfile)) {
             $filecnt = fopen($cntfile,'w');
             // initialize the counter file
-            $data->ldata->count = 1;
+            $data->count = 1;
         } else {
             // the file exists, open it, read it, close it,
             // increment the count, open it again, write it, 
@@ -91,21 +90,24 @@ if(isset($_id)) {
             $json   = fgets($filecnt,128);
             fclose($filecnt);
             // JSON -> object
-            $data->ldata = json_decode($json);
+            $data = json_decode($json);
             // update the data...
-            $data->ldata->count = intval($data->ldata->count + 1);
+            $data->count = intval($data->count + 1);
             // opens a file to contain the new hit number
             $filecnt = fopen($cntfile,'w');
         }
-        // fill in the new count and time...
-        $data->ldata->time = time();
-        $dt = new DateTime('now', new DateTimeZone(tzone()));
-        $data->ldata->dtime = array($dt->format('Ymd'), $dt->format('His'));
+        // fill in the new count date and time...
+        $tm = $data->time = time();
+        $dt = new DateTime("@$tm");
+        $tz = new DateTimeZone(tzone());
+        $dt->setTimezone($tz);
+        $data->dtime = array($dt->format('Y-m-d'), $dt->format('H:i:s'));
+        unset($tz);
+        unset($dt);
         // save, flush and close the file
-        fwrite($filecnt, json_encode($data->ldata));
+        fwrite($filecnt, json_encode($data));
         fflush($filecnt);
         fclose($filecnt);
-
         // if testing use an image that is easily seen
         $imgfile = ($id === 'testtest' ? $testimg : $countimg);
     } else $imgfile = $errimg;
