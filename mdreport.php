@@ -117,7 +117,13 @@ if(file_exists($thfile)) {
 
     for($ix = 0; $ix < $repqty; $ix++) {
         echo "        <tr>\n";
-        echo '            <th scope="row">'.($ix+1).'</th>'."\n";
+        // Rank value column - change between incrementing and 
+        // decrementing based on column heading clicks. But if 
+        // sorting is by "Repository"($isort) then the rank count 
+        // is opposite, then it will match the alphabetical 
+        // ordering.
+        $tidx = ($isort === null ? ($sortdir === 'd' ? ($ix + 1) : ($repqty - $ix)) : ($sortdir === 'd' ? ($repqty - $ix) : ($ix + 1)));
+        echo '            <th scope="row">'.$tidx.'</th>'."\n";
         echo "            <td>".$counters[$ix]->data->count."</td>\n";
         echo '            <td><a target="_blank" href="'.$repohome.$counters[$ix]->id.'" title="'.$linkmsg.'">'.$counters[$ix]->id."</a></td>\n";
         // NOTE: This block of code in the top of the if() isn't meant 
