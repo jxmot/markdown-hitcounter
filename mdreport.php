@@ -19,7 +19,9 @@ if(!defined('_DEBUG') || _DEBUG === false) {
 
     // MUST be done like this for PHP files that are 'linked'
     $queries = array();
-    parse_str($_SERVER['QUERY_STRING'], $queries);
+    if(isset(QRYSTR)) {
+        parse_str(QRYSTR, $queries);
+    }
     // return all counters, ordered by count
     $csort = (isset($queries['csort']) ? strtolower($queries['csort']) : null);
     // return all counters, ordered by time of last count
@@ -29,8 +31,9 @@ if(!defined('_DEBUG') || _DEBUG === false) {
     // for sorts, limit number of counters returned
     $limit = (isset($queries['limit']) ? $queries['limit'] : null);
 } else {
-    if(isset($_SERVER['QUERY_STRING'])) {
-        $q = $_SERVER['QUERY_STRING'];
+    // for testing the query string while _DEBUG is true
+    if(isset(QRYSTR)) {
+        $q = QRYSTR;
         echo "<p>$q</p>\n";
     }
 
@@ -84,7 +87,7 @@ if(file_exists($thfile)) {
     // get(rebuild if in _DEBUG mode) the query string...
     $qry = null;
     if(!defined('_DEBUG') || _DEBUG === false) {
-        $qry = '?' . $_SERVER['QUERY_STRING'];
+        $qry = '?' . QRYSTR;
     } else {
         $qry = '?' . ($csort !== null ? 'csort=' : ($isort !== null ? 'isort=' : ($tsort !== null ? 'tsort=' : 'csort='))) . $sortdir;
         if($limit !== null) {
