@@ -19,7 +19,7 @@ if(!defined('_DEBUG') || _DEBUG === false) {
 
     // MUST be done like this for PHP files that are 'linked'
     $queries = array();
-    if(isset(QRYSTR)) {
+    if(QRYSTR !== null) {
         parse_str(QRYSTR, $queries);
     }
     // return all counters, ordered by count
@@ -32,7 +32,7 @@ if(!defined('_DEBUG') || _DEBUG === false) {
     $limit = (isset($queries['limit']) ? $queries['limit'] : null);
 } else {
     // for testing the query string while _DEBUG is true
-    if(isset(QRYSTR)) {
+    if(QRYSTR !== null) {
         $q = QRYSTR;
         echo "<p>$q</p>\n";
     }
