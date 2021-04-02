@@ -46,16 +46,23 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     //////////////////////////////////////////////////////////////////////////
-
+    // sorting types
     var sorts = ['?csort=','?isort=','?tsort='];
+    // sort directions
     var sdirs = ['a','d'];
+    // URL to report generator
     var url = './mdreport.php';
+    // optional limiting qty of counters returned
     var limit = '&limit=10';
-    var datasrc = url+sorts[0]+sdirs[0]+limit;
+    // 
+    var datasrc = url+sorts[2]+sdirs[1];//+limit;
 
+    // create a table with mdreport.php and place 
+    // it within an specified element ID
     function createTable(elemid, ds) {
         httpGet(ds, (resp) => {
             $(elemid).html(resp);
+            // wait for a column in this table to be clicked
             $(elemid+' .orderhover').click((col) => {
                 var target = {
                     id: col.target.id,
@@ -67,13 +74,17 @@ document.addEventListener("DOMContentLoaded", () => {
         },false);
     };
 
+    // render the table of counters
     createTable('#repout', datasrc);
 
+    // when a column heading is clicked 
     $(document).on('newtable', (e, target) => {
         $('.orderhover').off('click');
-
-        var datasrc = url+sorts[target.ix - 1] + (target.order === 'a' ? 'd' : 'a') + limit;
+        // build the URL and query...
+        var datasrc = url+sorts[target.ix - 1] + (target.order === 'a' ? 'd' : 'a');// + limit;
+        // erase the previous table
         $('#repout').html('');
+        // go get it!
         createTable('#repout', datasrc);
     });
 });
