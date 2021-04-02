@@ -345,6 +345,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 The "Hit Count", "Repository" and "Last Counted" headings can be clicked to select sorting criteria and direction (*ascending vs descending*). When a column heading is clicked the report caption will change to reflect the choice.
 
+**A demonstration of the counter report can be seen [here](https://webexperiment.info/portfolio/mdhc/).**
+
 **NOTES :**
 * The links in the "Repository" column and built from the IDs found in `counters.json`. The ID text I used there is the *name of the repository* that the counter is intended for. The corresponding counter data files are named `repo-name`**`_counter.json`**.
 * When the report is viewed the data shown is *current*. 
