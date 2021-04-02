@@ -257,11 +257,89 @@ The following files are used in report generation and viewing:
 * `mdreport.php` - Retrieves the counter data and renders a Bootstrap 4.x table.
   * `mdreport.css` - Additional required CSS for the table
   * `mdreport-th.txt` - Column heading text
-  * `stddefines.php` - A collection of `define()` that make a number of PHP variables available to the application. It contains components used for creating URLs to resources.
+  * `stddefines.php` - A collection of `define()` that make a number of PHP `$_SERVER[]` values available to the application. It contains components used for creating URLs to resources.
 * `report.html` - The minimum required HTML/CSS and JavaScript/jQuery to render and display the table.
   * **Other Dependencies** : The "tool tips" used on the column headings are created with [tippy.js](<https://atomiks.github.io/tippyjs/>).
 
-**Report Screen Shot :**
+**Retrieving the Report -**
+
+The code that retreives the report and handles clicks on the column headings is contained in `report.html`. 
+
+```
+<body>
+    <div id="repout">
+    </div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    /*
+        Send a GET request and invoke a 
+        callback function when completed.
+    */
+    function httpGet(url, callback, tickle = false) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if(this.readyState == 4 && this.status == 200) {
+                var resp = this.responseText;
+                callback(resp);
+            }
+        };
+        // bypass caching, useful when retrieving resources
+        // that change frequently
+        if((tickle === true) && (url.includes('?') === false)) {
+            url = url + '?_=' + new Date().getTime();
+        }
+        xmlhttp.open('GET', url, true);
+        xmlhttp.send();
+    };
+
+    //////////////////////////////////////////////////////////////////////////
+    // sorting types
+    var sorts = ['?csort=','?isort=','?tsort='];
+    // sort directions
+    var sdirs = ['a','d'];
+    // URL to report generator
+    var url = './mdreport.php';
+    // optional limiting qty of counters returned
+    var limit = '&limit=10';
+    // 
+    var datasrc = url+sorts[2]+sdirs[1];//+limit;
+
+    // create a table with mdreport.php and place 
+    // it within an specified element ID
+    function createTable(elemid, ds) {
+        httpGet(ds, (resp) => {
+            $(elemid).html(resp);
+            // wait for a column in this table to be clicked
+            $(elemid+' .orderhover').click((col) => {
+                var target = {
+                    id: col.target.id,
+                    ix: col.target.dataset.ix,
+                    order: col.target.dataset.order
+                };
+                $(document).trigger('newtable', target);
+            });
+        },false);
+    };
+
+    // render the table of counters
+    createTable('#repout', datasrc);
+
+    // when a column heading is clicked 
+    $(document).on('newtable', (e, target) => {
+        $('.orderhover').off('click');
+        // build the URL and query...
+        var datasrc = url+sorts[target.ix - 1] + (target.order === 'a' ? 'd' : 'a');// + limit;
+        // erase the previous table
+        $('#repout').html('');
+        // go get it!
+        createTable('#repout', datasrc);
+    });
+});
+</script>
+</body>
+```
+
+**Sample Report Screen Shot -**
 
 <img src="./mdimg/report_sshot.png" style="border: 2px dashed">
 
@@ -274,11 +352,13 @@ The "Hit Count", "Repository" and "Last Counted" headings can be clicked to sele
  
 ## Other Uses
 
-You could count just about anything. All you need is to do a GET of `mdcount.php` with a proper query and you got it!
+You could count just about anything. All you need is to do a GET of `mdcount.php` with a proper query and you got a counter!
 
 # Conclusion
 
-This was an interesting afternoon project. I created it because I could not find *exactly* what I needed in the many hit counters out there.
+This started out as an interesting afternoon project. I created it because I could not find *exactly* what I needed in the many hit counters out there.
+
+And this project has evolved since then with the addition (and changes) of JSON formatted counter files, and sorted counter data retrieval.
 
 ---
 <img src="http://webexperiment.info/extcounter/mdcount.php?id=markdown-hitcounter">
