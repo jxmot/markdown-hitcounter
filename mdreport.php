@@ -111,8 +111,9 @@ if(file_exists($thfile)) {
     $data = file_get_contents($url, false, $context);
     $counters = json_decode($data);
 
+    // create the table caption
     $repqty = count($counters);
-    $tablecaption = "Top $repqty repositories. Sorted by $sorttitle[0] in $sorttitle[1] order";
+    $tablecaption = "There are $repqty counters shown.<br>Sorted by $sorttitle[0] in $sorttitle[1] order";
 
     for($ix = 0; $ix < $repqty; $ix++) {
         echo "        <tr>\n";
