@@ -61,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // it within an specified element ID
     function createTable(elemid, ds) {
         httpGet(ds, (resp) => {
+            $(elemid).hide();
             $(elemid).html(resp);
             // wait for a column in this table to be clicked
             $(elemid+' .orderhover').click((col) => {
@@ -71,6 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 };
                 $(document).trigger('newtable', target);
             });
+            setTimeout((id) => {
+                $(id).show();
+            }, 100, elemid);
         },false);
     };
 
@@ -82,8 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
         $('.orderhover').off('click');
         // build the URL and query...
         var datasrc = url+sorts[target.ix - 1] + (target.order === 'a' ? 'd' : 'a');// + limit;
-        // erase the previous table
-        $('#repout').html('');
         // go get it!
         createTable('#repout', datasrc);
     });
