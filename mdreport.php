@@ -164,19 +164,13 @@ if(file_exists($thfile)) {
         echo "        </tr>\n";
     }
 ?>
-        <!-- BS4 likes to render this on the bottom of the table, but we have CSS that
-             moves it to the top. 
-        -->
-        <caption><?php echo $tablecaption; ?></caption>
+            <!-- BS4 likes to render this on the bottom of the table, but we have CSS that
+                moves it to the top. 
+            -->
+            <caption><?php echo $tablecaption; ?></caption>
         </tbody>
     </table>
 </div>
-<script>
-    tippy('.orderhover', {
-        theme: 'light',
-        content: 'Click to select or change sorting order.',
-    });
-</script>
 <?php
 } else {    // if(file_exists($thfile))
     echo "<h1>Header File was not found - $thfile</h1>\n";
