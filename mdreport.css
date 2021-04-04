@@ -1,17 +1,103 @@
+
 div.table-container {
-    width:80%;
+    max-width:30%;
     margin:auto;
 }
 
-tr th {
+.hit-table {
+    table-layout:fixed;
+    font-size: 1.0rem;
+    margin: auto;
+}
+
+@media screen and (max-width: 2400px){
+    div.table-container {
+        max-width:40%;
+    }
+    .hit-table {
+        font-size: 1.0rem;
+    }
+}
+
+@media screen and (max-width: 1800px){
+    div.table-container {
+        max-width:60%;
+    }
+    .hit-table {
+        font-size: 1.0rem;
+    }
+}
+
+@media screen and (max-width: 1400px){
+    div.table-container {
+        max-width:60%;
+    }
+    .hit-table {
+        font-size: 1.0rem;
+    }
+}
+
+@media screen and (max-width: 1200px){
+    div.table-container {
+        max-width:80%;
+    }
+    .hit-table {
+        font-size: 1.0rem;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    div.table-container {
+        max-width:80%;
+    }
+    .hit-table {
+        font-size: 1.0rem;
+    }
+}
+
+@media screen and (max-width: 768px){
+    div.table-container {
+        max-width:90%;
+    }
+    .hit-table {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 500px){
+    div.table-container {
+        max-width:100%;
+    }
+    .hit-table {
+        font-size: 0.8rem;
+        width: auto!important;
+    }
+}
+
+@media screen and (max-width: 100px){
+    div.table-container {
+        max-width:100%;
+    }
+    .hit-table {
+        font-size: 0.7rem;
+        width: auto!important;
+    }
+}
+
+.table-cell-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.hit-table tr th {
     text-align:center;
 }
 
-tr td {
+.hit-table tr td {
     text-align:center;
 }
 
-table caption {
+table.hit-table caption {
     caption-side:top;
     text-align:center;
     color:black;
