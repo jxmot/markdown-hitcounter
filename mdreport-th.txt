@@ -1,1 +1,1 @@
-Rank,Hit Count,Repository,Last Counted
+#,Hits,Repository,Last Counted
