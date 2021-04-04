@@ -50,7 +50,8 @@ $thfile = './mdreport-th.txt';
 $arrup = 'sort-arrow-up';
 $arrdn = 'sort-arrow-dn';
 $repohome = 'https://github.com/jxmot/';
-$linkmsg = 'Open in New Tab or Window';
+$linktitle = 'Open Link in New Tab or Window';
+$thtitle = 'Click to select or to change the sorting order.';
 
 if(file_exists($thfile)) {
     $fileid = fopen($thfile,'r');
