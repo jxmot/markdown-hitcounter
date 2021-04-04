@@ -259,7 +259,6 @@ The following files are used in report generation and viewing:
   * `mdreport-th.txt` - Column heading text
   * `stddefines.php` - A collection of `define()` that make a number of PHP `$_SERVER[]` values available to the application. It contains components used for creating URLs to resources.
 * `report.html` - The minimum required HTML/CSS and JavaScript/jQuery to render and display the table.
-  * **Other Dependencies** : The "tool tips" used on the column headings are created with [tippy.js](<https://atomiks.github.io/tippyjs/>).
 
 **Retrieving the Report -**
 
