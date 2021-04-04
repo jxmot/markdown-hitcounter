@@ -68,19 +68,33 @@ if(file_exists($thfile)) {
 
     $dircss = ($sortdir === 'a' ? $arrup : ($sortdir === 'd' ? $arrdn : ''))
 ?>
-<link rel="stylesheet" href="./mdreport.css?=_<?php echo time(); ?>">
+<style>
+<?php
+echo file_get_contents('./mdreport.css');
+?>
+</style>
 <div class="table-responsive table-container">
-    <table id="hit-table" class="table table-sm">
+    <p style="text-align:center!important;">
+        <br>
+        <strong>
+            This is a demonstration of the code found in 
+            <br>
+            <a href="https://github.com/jxmot/markdown-hitcounter" target="_blank" title="Open in new tab">markdown-hitcounter</a>.
+        </strong>
+    </p>
+    <table id="hit-table" class="table table-sm hit-table">
         <thead>
+            <tr>
 <?php
     for($ix = 0; $ix < count($thitems); $ix++) {
         if($ix !== $sortidx) {   
-            echo '            <th'.($ix !== 0 ? ' id="hit-table-col'.$ix.'" class="orderhover" data-ix="'.$ix.'"' : '').'>'.$thitems[$ix].'</th>'."\n";
+            echo '            <th'.($ix !== 0 ? ' id="hit-table-col'.$ix.'" title="'.$thtitle.'" class="orderhover" data-ix="'.$ix.'"' : '').'>'.$thitems[$ix].'</th>'."\n";
         } else {
-            echo '            <th id="hit-table-col'.$ix.'" class="orderhover" data-order="'.$sortdir.'" data-ix="'.$ix.'">'.$thitems[$ix].'<span id="hit-table-order'.$ix.'" data-order="'.$sortdir.'" data-ix="'.$ix.'" class="'.$dircss.'">&nbsp;</span></th>'."\n";
+            echo '            <th id="hit-table-col'.$ix.'" title="'.$thtitle.'" class="orderhover" data-order="'.$sortdir.'" data-ix="'.$ix.'">'.$thitems[$ix].'<span id="hit-table-order'.$ix.'" data-order="'.$sortdir.'" data-ix="'.$ix.'" class="'.$dircss.'">&nbsp;</span></th>'."\n";
         }
     }
 ?>
+            </tr>
         </thead>
         <tbody>
 <?php
@@ -105,8 +119,8 @@ if(file_exists($thfile)) {
                     ."Content-Encoding: text\r\n"
         )
     );
-
     $context = stream_context_create($opts);
+    
     $url = $mdcountdata . ($qry !== null ? $qry : '');
     $data = file_get_contents($url, false, $context);
     $counters = json_decode($data);
@@ -125,7 +139,7 @@ if(file_exists($thfile)) {
         $tidx = ($isort === null ? ($sortdir === 'd' ? ($ix + 1) : ($repqty - $ix)) : ($sortdir === 'd' ? ($repqty - $ix) : ($ix + 1)));
         echo '            <th scope="row">'.$tidx.'</th>'."\n";
         echo "            <td>".$counters[$ix]->data->count."</td>\n";
-        echo '            <td><a target="_blank" href="'.$repohome.$counters[$ix]->id.'" title="'.$linkmsg.'">'.$counters[$ix]->id."</a></td>\n";
+        echo '            <td class="table-cell-ellipsis"><a target="_blank" href="'.$repohome.$counters[$ix]->id.'" title="'.$linktitle.'">'.$counters[$ix]->id."</a></td>\n";
         // NOTE: This block of code in the top of the if() isn't meant 
         // to be permanent. As mdcount.php was being developed the format 
         // of dtime[0] and dtime[1] changed. Originally the formats were
