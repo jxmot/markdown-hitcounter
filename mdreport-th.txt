@@ -1,1 +1,1 @@
-#,Hits,Repository,Last Counted
+#,Views,Repository,Last Viewed
