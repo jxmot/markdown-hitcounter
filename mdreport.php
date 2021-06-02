@@ -15,7 +15,7 @@ function tzone() {
 // check for debug/test mode
 if(!defined('_DEBUG') || _DEBUG === false) {
 
-    $mdcountdata = (isset($queries['mdcdata']) ? strtolower($queries['mdcdata']) : THISSRVR.'/mdcountdata.php');
+    $mdcountdata = THISSRVR.'/mdcountdata.php';
 
     // MUST be done like this for PHP files that are 'linked'
     $queries = array();
