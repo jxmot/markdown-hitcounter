@@ -126,9 +126,16 @@ echo file_get_contents('./mdreport.css');
     $data = file_get_contents($url, false, $context);
     $counters = json_decode($data);
 
-    // create the table caption
-    $repqty = count($counters);
-    $tablecaption = "There are $repqty counters shown.<br>Sorted by $sorttitle[0] in $sorttitle[1] order";
+    if(gettype($counters) === 'array') {
+        // create the table caption
+        $repqty = count($counters);
+        $tablecaption = "There are $repqty counters shown.<br>Sorted by $sorttitle[0] in $sorttitle[1] order";
+    } else {
+        // on rare occasion the hosting server I use has 
+        // problems with file_get_contents() and a context 
+        // where it never returns and times out.
+        $tablecaption = "Server ERROR - [$url] returned = [$counters]";
+    }
 
     for($ix = 0; $ix < $repqty; $ix++) {
         echo "        <tr>\n";
