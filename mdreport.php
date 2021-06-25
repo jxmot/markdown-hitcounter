@@ -15,7 +15,7 @@ function tzone() {
 // check for debug/test mode
 if(!defined('_DEBUG') || _DEBUG === false) {
 
-    $mdcountdata = THISSRVR.'/mdcountdata.php';
+//    $mdcountdata = THISSRVR.'/mdcountdata.php';
 
     // MUST be done like this for PHP files that are 'linked'
     $queries = array();
@@ -37,7 +37,7 @@ if(!defined('_DEBUG') || _DEBUG === false) {
         echo "<p>$q</p>\n";
     }
 
-    $mdcountdata = THISSRVR.'/mdcountdata.php';
+//    $mdcountdata = THISSRVR.'/mdcountdata.php';
 
     // set as needed for testing
     $csort = 'd';
