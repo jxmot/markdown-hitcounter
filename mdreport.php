@@ -12,6 +12,9 @@ function tzone() {
     return $tmp->tz;
 }
 
+//$mdcountdata = '../../extcounter/mdcountdata.php';
+$mdcountdata = THISSRVR.'/mdcountdata.php';
+
 // check for debug/test mode
 if(!defined('_DEBUG') || _DEBUG === false) {
 
