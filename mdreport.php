@@ -33,6 +33,8 @@ if(!defined('_DEBUG') || _DEBUG === false) {
     $isort = (isset($queries['isort']) ? strtolower($queries['isort']) : null);
     // for sorts, limit number of counters returned
     $limit = (isset($queries['limit']) ? $queries['limit'] : null);
+    // if embed is true then there will be no report heading or table caption
+    $embed = (isset($queries['embed']) ? true : false);
 } else {
     // for testing the query string while _DEBUG is true
     if(QRYSTR !== null) {
@@ -78,14 +80,9 @@ echo file_get_contents('./mdreport.css');
 ?>
 </style>
 <div class="table-responsive table-container">
-    <p style="text-align:center!important;">
-        <br>
-        <strong>
-            This is a demonstration of the code found in 
-            <br>
-            <a href="https://github.com/jxmot/markdown-hitcounter" target="_blank" title="Open in new tab">markdown-hitcounter</a>.
-        </strong>
-    </p>
+<?php
+    if($embed === false) include 'reporthead.html';
+?>
     <table id="hit-table" class="table table-sm hit-table">
         <thead>
             <tr>
@@ -189,10 +186,10 @@ echo file_get_contents('./mdreport.css');
         echo "        </tr>\n";
     }
 ?>
-            <!-- BS4 likes to render this on the bottom of the table, but we have CSS that
-                moves it to the top. 
-            -->
-            <caption><?php echo $tablecaption; ?></caption>
+
+<?php
+    if($embed === false) include 'reportcaption.html';
+?>
         </tbody>
     </table>
 </div>
