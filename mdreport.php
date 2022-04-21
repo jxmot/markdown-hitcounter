@@ -193,16 +193,16 @@ echo file_get_contents('./mdreport.css');
         echo "            <td>".$date."</td>\n";
 
         echo "            <td>\n";
-        echo '                <img style="margin-bottom:0.15rem;" src="https://img.shields.io/github/stars/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
-        echo "                <br>\n";
-        echo '                <img style="margin-bottom:0.5rem;" src="https://img.shields.io/github/forks/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+        echo '                <div class="stats-cell">' . "\n";
+        echo '                    <img style="margin: 0.25rem 0.15rem 0.15rem 0.15rem;" src="https://img.shields.io/github/stars/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+        echo "                    <br>\n";
+        echo '                    <img style="margin: 0 0.15rem 0.25rem 0.15rem;" src="https://img.shields.io/github/forks/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+        echo "                </div>\n";
         echo "            </td>\n";
 
         echo "        </tr>\n";
     }
-?>
 
-<?php
     if($embed === false) include 'reportcaption.html';
 ?>
         </tbody>
