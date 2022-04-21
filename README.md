@@ -380,6 +380,18 @@ The "Hit Count", "Repository" and "Last Counted" headings can be clicked to sele
 * The links in the "Repository" column are built from the IDs found in `counters.json`. The ID text I used there is the *name of the repository* that the counter is intended for. The corresponding counter data files are named `repo-name`**`_counter.json`**.
 * When the report is viewed the data shown is *current*. 
 * If the "Last Counted" column date and time seem to be incorrect then the time zone may need to be changed. Edit the `timezone.json` file to match your time zone.
+
+## "Embedded" Report
+
+It is possible to retreive counter data without using `report.html`. The purpose is to *embed* the table in another page and to be able to apply some alternative CSS.
+
+To retrieve it - 
+
+```
+GET http[s]://your-server/path-to-file/mdreport.php?tsort=d&embed&limit=5
+```
+
+The response is going to contain some CSS for the table, and *just* the table itself. 
  
 ## Other Uses
 
