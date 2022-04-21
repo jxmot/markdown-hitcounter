@@ -160,9 +160,39 @@ It is possible to retrieve the counter data for a single counter or for all of t
 **Return data for a specific counter -**
 
 ```
-GET http[s]://your-server/path-to-file/mdcountdata.php?id=testtest
+GET http[s]://your-server/path-to-file/mdcountdata.php?id=sensornet
 ```
 
+The data is returned in JSON - 
+
+```
+[
+    {
+        "id": "sensornet",
+        "data": {
+            "count": 30,
+            "time": 1616458038,
+            "dtime": [
+                "20210322",
+                "190718"
+            ]
+        }
+    }
+]
+```
+
+
+**Return just the count data for a specific counter -**
+
+```
+GET http[s]://your-server/path-to-file/mdcountdata.php?id=sensornet&count
+```
+
+A single value is returned, no JSON formatting - 
+
+```
+30
+```
 
 **Return data for all counters -**
 
@@ -338,9 +368,9 @@ document.addEventListener("DOMContentLoaded", () => {
 </body>
 ```
 
-**Sample Report Screen Shot -**
+**Sample Report Screen Shot - (via `report.html`)**
 
-<img src="./mdimg/report_sshot.png" style="border: 2px dashed">
+<img src="./mdimg/report_sshot.png" style="border: 2px dashed;max-width:50%;">
 
 The "Hit Count", "Repository" and "Last Counted" headings can be clicked to select sorting criteria and direction (*ascending vs descending*). When a column heading is clicked the report caption will change to reflect the choice.
 
@@ -359,7 +389,7 @@ You could count just about anything. All you need is to do a GET of `mdcount.php
 
 This started out as an interesting afternoon project. I created it because I could not find *exactly* what I needed in the many hit counters out there.
 
-And this project has evolved since then with the addition (and changes) of JSON formatted counter files, and sorted counter data retrieval.
+And this project has evolved since then with the addition (and changes) of JSON formatted counter files, and sorted counter data retrieval. And the latest change was adding a 5th column to contain some GitHub statistics. 
 
 ---
 <img src="http://webexperiment.info/extcounter/mdcount.php?id=markdown-hitcounter">
