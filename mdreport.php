@@ -201,6 +201,10 @@ echo file_get_contents('./mdreport.css');
         echo '                    <img class="stats-cell-stars" src="https://img.shields.io/github/stars/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
         echo "                    <br>\n";
         echo '                    <img class="stats-cell-forks" src="https://img.shields.io/github/forks/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+// uncomment the next two lines to have the issue count,
+// since the image is a little longer it can get clipped
+//        echo "                    <br>\n";
+//        echo '                    <img class="stats-cell-forks" src="https://img.shields.io/github/issues/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
         echo "                </div>\n";
         echo "            </td>\n";
 
