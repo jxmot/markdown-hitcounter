@@ -54,7 +54,8 @@ if(!defined('_DEBUG') || _DEBUG === false) {
 $thfile = './mdreport-th.txt';
 $arrup = 'sort-arrow-up';
 $arrdn = 'sort-arrow-dn';
-$repohome = 'https://github.com/jxmot/';
+$owner = 'jxmot';
+$repohome = 'https://github.com/'.$owner.'/';
 $linktitle = 'Open Link in New Tab or Window';
 $thtitle = 'Click to select or to change the sorting order.';
 
@@ -88,8 +89,15 @@ echo file_get_contents('./mdreport.css');
             <tr>
 <?php
     for($ix = 0; $ix < count($thitems); $ix++) {
-        if($ix !== $sortidx) {   
-            echo '            <th'.($ix !== 0 ? ' id="hit-table-col'.$ix.'" title="'.$thtitle.'" class="orderhover" data-ix="'.$ix.'"' : '').'>'.$thitems[$ix].'</th>'."\n";
+        if($ix !== $sortidx) {
+            // the last column is not sortable, this 
+            // is intentional. it's used as the "Stats"
+            // column and the data cannot be sorted.
+            if($ix === (count($thitems) - 1)) {
+                echo '            <th'.($ix !== 0 ? ' id="hit-table-col'.$ix.'" title="" class="" data-ix="'.$ix.'"' : '').'>'.$thitems[$ix].'</th>'."\n";
+            } else {
+                echo '            <th'.($ix !== 0 ? ' id="hit-table-col'.$ix.'" title="'.$thtitle.'" class="orderhover" data-ix="'.$ix.'"' : '').'>'.$thitems[$ix].'</th>'."\n";
+            }
         } else {
             echo '            <th id="hit-table-col'.$ix.'" title="'.$thtitle.'" class="orderhover" data-order="'.$sortdir.'" data-ix="'.$ix.'">'.$thitems[$ix].'<span id="hit-table-order'.$ix.'" data-order="'.$sortdir.'" data-ix="'.$ix.'" class="'.$dircss.'">&nbsp;</span></th>'."\n";
         }
@@ -183,6 +191,13 @@ echo file_get_contents('./mdreport.css');
         }
 
         echo "            <td>".$date."</td>\n";
+
+        echo "            <td>\n";
+        echo '                <img style="margin-bottom:0.15rem;" src="https://img.shields.io/github/stars/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+        echo "                <br>\n";
+        echo '                <img style="margin-bottom:0.5rem;" src="https://img.shields.io/github/forks/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+        echo "            </td>\n";
+
         echo "        </tr>\n";
     }
 ?>
