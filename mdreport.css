@@ -123,3 +123,11 @@ table.hit-table caption {
 .stats-cell {
     background-color: lightgrey;
 }
+
+.stats-cell-stars {
+    margin: 0.25rem 0.15rem 0.15rem 0.15rem;
+}
+
+.stats-cell-forks {
+    margin: 0 0.15rem 0.25rem 0.15rem;
+}

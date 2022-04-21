@@ -194,9 +194,9 @@ echo file_get_contents('./mdreport.css');
 
         echo "            <td>\n";
         echo '                <div class="stats-cell">' . "\n";
-        echo '                    <img style="margin: 0.25rem 0.15rem 0.15rem 0.15rem;" src="https://img.shields.io/github/stars/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+        echo '                    <img class="stats-cell-stars" src="https://img.shields.io/github/stars/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
         echo "                    <br>\n";
-        echo '                    <img style="margin: 0 0.15rem 0.25rem 0.15rem;" src="https://img.shields.io/github/forks/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+        echo '                    <img class="stats-cell-forks" src="https://img.shields.io/github/forks/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
         echo "                </div>\n";
         echo "            </td>\n";
 
