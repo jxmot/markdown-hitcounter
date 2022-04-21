@@ -89,17 +89,21 @@ echo file_get_contents('./mdreport.css');
             <tr>
 <?php
     for($ix = 0; $ix < count($thitems); $ix++) {
-        if($ix !== $sortidx) {
-            // the last column is not sortable, this 
-            // is intentional. it's used as the "Stats"
-            // column and the data cannot be sorted.
-            if($ix === (count($thitems) - 1)) {
-                echo '            <th'.($ix !== 0 ? ' id="hit-table-col'.$ix.'" title="" class="" data-ix="'.$ix.'"' : '').'>'.$thitems[$ix].'</th>'."\n";
+        if($embed === false) {
+            if($ix !== $sortidx) {
+                // the last column is not sortable, this 
+                // is intentional. it's used as the "Stats"
+                // column and the data cannot be sorted.
+                if($ix === (count($thitems) - 1)) {
+                    echo '            <th'.($ix !== 0 ? ' id="hit-table-col'.$ix.'" title="" class="" data-ix="'.$ix.'"' : '').'>'.$thitems[$ix].'</th>'."\n";
+                } else {
+                    echo '            <th'.($ix !== 0 ? ' id="hit-table-col'.$ix.'" title="'.$thtitle.'" class="orderhover" data-ix="'.$ix.'"' : '').'>'.$thitems[$ix].'</th>'."\n";
+                }
             } else {
-                echo '            <th'.($ix !== 0 ? ' id="hit-table-col'.$ix.'" title="'.$thtitle.'" class="orderhover" data-ix="'.$ix.'"' : '').'>'.$thitems[$ix].'</th>'."\n";
+                echo '            <th id="hit-table-col'.$ix.'" title="'.$thtitle.'" class="orderhover" data-order="'.$sortdir.'" data-ix="'.$ix.'">'.$thitems[$ix].'<span id="hit-table-order'.$ix.'" data-order="'.$sortdir.'" data-ix="'.$ix.'" class="'.$dircss.'">&nbsp;</span></th>'."\n";
             }
         } else {
-            echo '            <th id="hit-table-col'.$ix.'" title="'.$thtitle.'" class="orderhover" data-order="'.$sortdir.'" data-ix="'.$ix.'">'.$thitems[$ix].'<span id="hit-table-order'.$ix.'" data-order="'.$sortdir.'" data-ix="'.$ix.'" class="'.$dircss.'">&nbsp;</span></th>'."\n";
+            echo '            <th'.($ix !== 0 ? ' id="hit-table-col'.$ix.'" title="" class="" data-ix="'.$ix.'"' : '').'>'.$thitems[$ix].'</th>'."\n";
         }
     }
 ?>
