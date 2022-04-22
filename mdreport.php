@@ -17,9 +17,6 @@ $mdcountdata = THISSRVR.'/mdcountdata.php';
 
 // check for debug/test mode
 if(!defined('_DEBUG') || _DEBUG === false) {
-
-//    $mdcountdata = THISSRVR.'/mdcountdata.php';
-
     // MUST be done like this for PHP files that are 'linked'
     $queries = array();
     if(QRYSTR !== null) {
@@ -41,9 +38,6 @@ if(!defined('_DEBUG') || _DEBUG === false) {
         $q = QRYSTR;
         echo "<p>$q</p>\n";
     }
-
-//    $mdcountdata = THISSRVR.'/mdcountdata.php';
-
     // set as needed for testing
     $csort = 'd';
     $tsort = null;
