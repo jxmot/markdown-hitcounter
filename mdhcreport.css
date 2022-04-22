@@ -1,4 +1,4 @@
-
+/* mdhcreport.css */
 div.table-container {
     max-width:30%;
     margin:auto;
@@ -125,9 +125,26 @@ table.hit-table caption {
 }
 
 .stats-cell-stars {
-    margin: 0.25rem 0.15rem 0.15rem 0.15rem;
+    margin: 0 0.15rem 0.15rem 0.15rem;
 }
 
 .stats-cell-forks {
-    margin: 0 0.15rem 0.25rem 0.15rem;
+    margin: 0 0.15rem 0.15rem 0.15rem;
 }
+
+.stats-cell-watchers {
+    margin: 0 0.15rem 0.15rem 0.15rem;
+}
+
+.stats-cell-issues {
+    margin: 0 0.15rem 0.15rem 0.15rem;
+}
+
+.stats-cell-first {
+    margin-top: 0.25rem!important;
+}
+
+.stats-cell-last {
+    margin-bottom: 0.25rem!important;
+}
+

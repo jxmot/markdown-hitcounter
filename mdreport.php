@@ -77,7 +77,7 @@ if(file_exists($thfile)) {
 ?>
 <style>
 <?php
-echo file_get_contents('./mdreport.css');
+echo file_get_contents('./mdhcreport.css');
 ?>
 </style>
 <div class="table-responsive table-container">
