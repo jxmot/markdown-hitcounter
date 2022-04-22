@@ -10,3 +10,12 @@
 .hit-table tr {
     border-bottom: 1px solid black;
 }
+/*
+    Bootstrap classes:
+
+        table-responsive
+        table 
+        table-sm
+
+    Not needed when the report is embedded.
+*/
