@@ -1,3 +1,9 @@
+<p style="text-align:center">
+If this repository has helped you please consider a donation to help keep this project going. Thank You!
+<br><br>
+<a href="https://www.paypal.me/jxmot" target="_blank"><img src=https://img.shields.io/badge/Contribute-PayPal.me-3b29ff.svg></a>
+</p>
+
 # Markdown Hit Counter
 
 This counter is intended for use in GitHub README markdown files. It has the following features:
@@ -13,7 +19,7 @@ This counter is intended for use in GitHub README markdown files. It has the fol
 
 You will need:
 
-* A HTTP server, not HTTPS. It has not been tested with HTTPS. **If you get it to work with HTTPS please let me know and I will update this file.**
+* A web server, HTTP or HTTPS should be ok.
 * The server needs PHP >5.6.
 * You will need access to your server to copy files and create a folder.
 
@@ -284,15 +290,18 @@ GET http[s]://your-server/path-to-file/mdcountdata.php?id=BLAH
 
 The following files are used in report generation and viewing:
 
-* `mdreport.php` - Retrieves the counter data and renders a Bootstrap 4.x table.
-  * `mdreport.css` - Additional required CSS for the table
+* `mdreport.php` - Retrieves the counter data and renders a Bootstrap 4.x table
+  * `mdhcreport.css` - Additional required CSS for the table
+  * `embedreport.css` - CSS required for an embedded report
+  * `reporthead.html` - For non-embedded reports, this contains the page title and table heading
+  * `reportcaption.html` - For non-embedded reports, this contains the table caption
   * `mdreport-th.txt` - Column heading text
-  * `stddefines.php` - A collection of `define()` that make a number of PHP `$_SERVER[]` values available to the application. It contains components used for creating URLs to resources.
-* `report.html` - The minimum required HTML/CSS and JavaScript/jQuery to render and display the table.
+  * `stddefines.php` - A collection of `define()` that make a number of PHP `$_SERVER[]` values available to the application. It contains components used for creating URLs to resources
+* `report.html` - The minimum required HTML/CSS and JavaScript/jQuery to render and display the table
 
 **Retrieving the Report -**
 
-The code that retreives the report and handles clicks on the column headings is contained in `report.html`. 
+The code that retreives the report and handles clicks on the column headings is contained in `report.html`. The necessary CSS can be found in `mdhcreport.css`.
 
 ```
 <body>
@@ -388,11 +397,15 @@ It is possible to retreive counter data without using `report.html`. The purpose
 To retrieve it - 
 
 ```
-GET http[s]://your-server/path-to-file/mdreport.php?tsort=d&embed&limit=5
+GET http[s]://your-server/path-to-file/mdreport.php?tsort=d&limit=5&embed
 ```
 
-The response is going to contain some CSS for the table, and *just* the table itself. 
- 
+The response is going to contain some CSS for the table, and *just* the table itself. You can use a browser and go to `http[s]://your-server/path-to-file/mdreport.php?tsort=d&limit=5&embed`. You will see something like this- 
+
+<img src="./mdimg/report_embed_sshot.png" style="border: 2px dashed;max-width:50%;">
+
+**NOTE:** The table is not sortable like the one rendered with `report.html`. 
+
 ## Other Uses
 
 You could count just about anything. All you need is to do a GET of `mdcount.php` with a proper query and you got a counter!
