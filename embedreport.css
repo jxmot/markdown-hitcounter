@@ -1,0 +1,12 @@
+/* embedreport.css */
+.hit-table {
+  border-collapse: collapse;
+}
+
+.hit-table thead {
+    border-bottom: 3px solid black;
+}
+
+.hit-table tr {
+    border-bottom: 1px solid black;
+}

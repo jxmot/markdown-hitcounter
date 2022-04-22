@@ -72,11 +72,12 @@ if(file_exists($thfile)) {
 <style>
 <?php
 echo file_get_contents('./mdhcreport.css');
+if($embed === true) echo file_get_contents('./embedreport.css');
 ?>
 </style>
 <div class="table-responsive table-container">
 <?php
-    if($embed === false) include 'reporthead.html';
+if($embed === false) include 'reporthead.html';
 ?>
     <table id="hit-table" class="table table-sm hit-table">
         <thead>
@@ -188,21 +189,26 @@ echo file_get_contents('./mdhcreport.css');
             $date = $counters[$ix]->data->dtime[0] . '<br>' . $counters[$ix]->data->dtime[1];
         }
 
-        echo "            <td>".$date."</td>\n";
+        echo "                <td>".$date."</td>\n";
 
-        echo "            <td>\n";
-        echo '                <div class="stats-cell">' . "\n";
-        echo '                    <img class="stats-cell-stars" src="https://img.shields.io/github/stars/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
-        echo "                    <br>\n";
-        echo '                    <img class="stats-cell-forks" src="https://img.shields.io/github/forks/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
-// uncomment the next two lines to have the issue count,
-// since the image is a little longer it can get clipped
-//        echo "                    <br>\n";
-//        echo '                    <img class="stats-cell-forks" src="https://img.shields.io/github/issues/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
-        echo "                </div>\n";
-        echo "            </td>\n";
-
-        echo "        </tr>\n";
+        echo "                <td>\n";
+        echo '                    <div class="stats-cell">' . "\n";
+        echo '                        <img class="stats-cell-stars stats-cell-first" src="https://img.shields.io/github/stars/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+        echo "                        <br>\n";
+        echo '                        <img class="stats-cell-forks stats-cell-last" src="https://img.shields.io/github/forks/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+// uncomment the next two lines to have the number of watchers
+// if this is the last badge then add the stats-cell-last class
+// and remove it above
+//        echo "                        <br>\n";
+//        echo '                        <img class="stats-cell-watchers" src="https://img.shields.io/github/watchers/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+// uncomment the next two lines to have the issue count
+// if this is the last badge then add the stats-cell-last class
+// and remove it above
+//        echo "                        <br>\n";
+//        echo '                        <img class="stats-cell-issues" src="https://img.shields.io/github/issues/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+        echo "                    </div>\n";
+        echo "                </td>\n";
+        echo "            </tr>\n";
     }
 
     if($embed === false) include 'reportcaption.html';
