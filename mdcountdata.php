@@ -157,6 +157,8 @@ if(!defined('_DEBUG') || _DEBUG === false) {
     $isort = (isset($queries['isort']) ? strtolower($queries['isort']) : null);
     // for sorts, limit number of counters returned
     $limit = (isset($queries['limit']) ? $queries['limit'] : null);
+    // if $count is true then only the count value will be returned
+    $count = (isset($queries['count']) ? true : false);
 } else {
     // set as needed for testing
     $id    = null;
@@ -164,6 +166,7 @@ if(!defined('_DEBUG') || _DEBUG === false) {
     $tsort = null;
     $isort = null;
     $limit = 2;
+    $count = false;
 }
 
 // get the valid counter ID list
@@ -185,8 +188,12 @@ if($id !== null) {
             // would get that big.
             $json = fgets($filecnt,128);
             fclose($filecnt);
-            //$result = '['.$json.']';
-            $result = '[{"id":"'.$id.'","data":'.$json.'}]';
+            if($count === false) {
+                $result = '[{"id":"'.$id.'","data":'.$json.'}]';
+            } else {
+                $tmp = json_decode($json);
+                $result = $tmp->{'count'};
+            }
         } else {
             $result = '[{"error":true,"msg":"file ['.$cntfile.'] does not exist"}]';
         }

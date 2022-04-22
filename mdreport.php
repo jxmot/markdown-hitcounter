@@ -17,9 +17,6 @@ $mdcountdata = THISSRVR.'/mdcountdata.php';
 
 // check for debug/test mode
 if(!defined('_DEBUG') || _DEBUG === false) {
-
-//    $mdcountdata = THISSRVR.'/mdcountdata.php';
-
     // MUST be done like this for PHP files that are 'linked'
     $queries = array();
     if(QRYSTR !== null) {
@@ -33,15 +30,14 @@ if(!defined('_DEBUG') || _DEBUG === false) {
     $isort = (isset($queries['isort']) ? strtolower($queries['isort']) : null);
     // for sorts, limit number of counters returned
     $limit = (isset($queries['limit']) ? $queries['limit'] : null);
+    // if embed is true then there will be no report heading or table caption
+    $embed = (isset($queries['embed']) ? true : false);
 } else {
     // for testing the query string while _DEBUG is true
     if(QRYSTR !== null) {
         $q = QRYSTR;
         echo "<p>$q</p>\n";
     }
-
-//    $mdcountdata = THISSRVR.'/mdcountdata.php';
-
     // set as needed for testing
     $csort = 'd';
     $tsort = null;
@@ -52,7 +48,8 @@ if(!defined('_DEBUG') || _DEBUG === false) {
 $thfile = './mdreport-th.txt';
 $arrup = 'sort-arrow-up';
 $arrdn = 'sort-arrow-dn';
-$repohome = 'https://github.com/jxmot/';
+$owner = 'jxmot';
+$repohome = 'https://github.com/'.$owner.'/';
 $linktitle = 'Open Link in New Tab or Window';
 $thtitle = 'Click to select or to change the sorting order.';
 
@@ -74,27 +71,34 @@ if(file_exists($thfile)) {
 ?>
 <style>
 <?php
-echo file_get_contents('./mdreport.css');
+echo file_get_contents('./mdhcreport.css');
+if($embed === true) echo file_get_contents('./embedreport.css');
 ?>
 </style>
 <div class="table-responsive table-container">
-    <p style="text-align:center!important;">
-        <br>
-        <strong>
-            This is a demonstration of the code found in 
-            <br>
-            <a href="https://github.com/jxmot/markdown-hitcounter" target="_blank" title="Open in new tab">markdown-hitcounter</a>.
-        </strong>
-    </p>
+<?php
+if($embed === false) include 'reporthead.html';
+?>
     <table id="hit-table" class="table table-sm hit-table">
         <thead>
             <tr>
 <?php
     for($ix = 0; $ix < count($thitems); $ix++) {
-        if($ix !== $sortidx) {   
-            echo '            <th'.($ix !== 0 ? ' id="hit-table-col'.$ix.'" title="'.$thtitle.'" class="orderhover" data-ix="'.$ix.'"' : '').'>'.$thitems[$ix].'</th>'."\n";
+        if($embed === false) {
+            if($ix !== $sortidx) {
+                // the last column is not sortable, this 
+                // is intentional. it's used as the "Stats"
+                // column and the data cannot be sorted.
+                if($ix === (count($thitems) - 1)) {
+                    echo '            <th'.($ix !== 0 ? ' id="hit-table-col'.$ix.'" title="" class="" data-ix="'.$ix.'"' : '').'>'.$thitems[$ix].'</th>'."\n";
+                } else {
+                    echo '            <th'.($ix !== 0 ? ' id="hit-table-col'.$ix.'" title="'.$thtitle.'" class="orderhover" data-ix="'.$ix.'"' : '').'>'.$thitems[$ix].'</th>'."\n";
+                }
+            } else {
+                echo '            <th id="hit-table-col'.$ix.'" title="'.$thtitle.'" class="orderhover" data-order="'.$sortdir.'" data-ix="'.$ix.'">'.$thitems[$ix].'<span id="hit-table-order'.$ix.'" data-order="'.$sortdir.'" data-ix="'.$ix.'" class="'.$dircss.'">&nbsp;</span></th>'."\n";
+            }
         } else {
-            echo '            <th id="hit-table-col'.$ix.'" title="'.$thtitle.'" class="orderhover" data-order="'.$sortdir.'" data-ix="'.$ix.'">'.$thitems[$ix].'<span id="hit-table-order'.$ix.'" data-order="'.$sortdir.'" data-ix="'.$ix.'" class="'.$dircss.'">&nbsp;</span></th>'."\n";
+            echo '            <th'.($ix !== 0 ? ' id="hit-table-col'.$ix.'" title="" class="" data-ix="'.$ix.'"' : '').'>'.$thitems[$ix].'</th>'."\n";
         }
     }
 ?>
@@ -185,14 +189,30 @@ echo file_get_contents('./mdreport.css');
             $date = $counters[$ix]->data->dtime[0] . '<br>' . $counters[$ix]->data->dtime[1];
         }
 
-        echo "            <td>".$date."</td>\n";
-        echo "        </tr>\n";
+        echo "                <td>".$date."</td>\n";
+
+        echo "                <td>\n";
+        echo '                    <div class="stats-cell">' . "\n";
+        echo '                        <img class="stats-cell-stars stats-cell-first" src="https://img.shields.io/github/stars/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+        echo "                        <br>\n";
+        echo '                        <img class="stats-cell-forks stats-cell-last" src="https://img.shields.io/github/forks/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+// uncomment the next two lines to have the number of watchers
+// if this is the last badge then add the stats-cell-last class
+// and remove it above
+//        echo "                        <br>\n";
+//        echo '                        <img class="stats-cell-watchers" src="https://img.shields.io/github/watchers/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+// uncomment the next two lines to have the issue count
+// if this is the last badge then add the stats-cell-last class
+// and remove it above
+//        echo "                        <br>\n";
+//        echo '                        <img class="stats-cell-issues" src="https://img.shields.io/github/issues/'.$owner.'/'.$counters[$ix]->id.'">' . "\n";
+        echo "                    </div>\n";
+        echo "                </td>\n";
+        echo "            </tr>\n";
     }
+
+    if($embed === false) include 'reportcaption.html';
 ?>
-            <!-- BS4 likes to render this on the bottom of the table, but we have CSS that
-                moves it to the top. 
-            -->
-            <caption><?php echo $tablecaption; ?></caption>
         </tbody>
     </table>
 </div>
