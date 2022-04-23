@@ -121,10 +121,10 @@ if($embed === false) include 'reporthead.html';
     $opts = array(
         'http'=>array(
             'method'=>'GET',
-            'header'=>"Accept-language: en\r\n"
-                    ."user-agent: custom\r\n"
-                    ."Content-Type: application/json; charset=utf-8\r\n"
-                    ."Content-Encoding: text\r\n"
+            'header'=>"user-agent: custom\r\n"
+                    ."Accept-language: en-US\r\n"
+                    ."Accept: application/json\r\n" 
+                    ."Accept-Charset: utf-8\r\n"
         )
     );
     $context = stream_context_create($opts);
