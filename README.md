@@ -134,7 +134,7 @@ And to count use this:
 
 The resulting file will be `logs/my_repo_count.log`.
 
-**NOTE:** Replace any spaces with an underscore or hyphen. The incoming IDs and those in the `counters.json` file can be mixed case because they are converted to lower case before they're checked.
+**NOTE:** Replace any spaces with an underscore or hyphen. The incoming IDs and those in the `counters.json` file can be mixed case because they are converted to lower case before they're checked. For typical use with Github and markdown files the IDs should match repository names.
 
 ### Edit `images.json` (*optional*)
 
