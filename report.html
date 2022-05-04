@@ -27,7 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
         xmlhttp.onreadystatechange = function() {
             if(this.readyState == 4 && this.status == 200) {
                 var resp = this.responseText;
+                console.log(`${this.readyState} - ${this.status} - ${resp.length}`);
                 callback(resp);
+            } else {
+                console.log(`${this.readyState} - ${this.status}`);
             }
         };
         // bypass caching, useful when retrieving resources
