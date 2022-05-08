@@ -44,8 +44,8 @@ if(!defined('_DEBUG') || _DEBUG === false) {
     $isort = null;
     $limit = 2;
 }
-
-$thfile = './mdreport-th.txt';
+if($embed === true) $thfile = './mdreport-th-embed.txt';
+else $thfile = './mdreport-th.txt';
 $arrup = 'sort-arrow-up';
 $arrdn = 'sort-arrow-dn';
 $owner = 'jxmot';
@@ -152,7 +152,7 @@ if($embed === false) include 'reporthead.html';
         // is opposite, then it will match the alphabetical 
         // ordering.
         $tidx = ($isort === null ? ($sortdir === 'd' ? ($ix + 1) : ($repqty - $ix)) : ($sortdir === 'd' ? ($repqty - $ix) : ($ix + 1)));
-        echo '            <th scope="row">'.$tidx.'</th>'."\n";
+        if($embed === false) echo '            <th scope="row">'.$tidx.'</th>'."\n";
         echo "            <td>".$counters[$ix]->data->count."</td>\n";
         echo '            <td class="table-cell-ellipsis"><a target="_blank" href="'.$repohome.$counters[$ix]->id.'" title="'.$linktitle.'">'.$counters[$ix]->id."</a></td>\n";
         // NOTE: This block of code in the top of the if() isn't meant 
