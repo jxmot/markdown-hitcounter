@@ -70,7 +70,7 @@ div.table-container {
     }
     .hit-table {
         font-size: 0.8rem;
-        width: auto!important;
+        /* width: auto!important; */
     }
 }
 
@@ -80,7 +80,7 @@ div.table-container {
     }
     .hit-table {
         font-size: 0.7rem;
-        width: auto!important;
+        /* width: auto!important; */
     }
 }
 
