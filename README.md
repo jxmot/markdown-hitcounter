@@ -1,9 +1,3 @@
-<p style="text-align:center">
-If this repository has helped you please consider a donation to help keep this project going. Thank You!
-<br><br>
-<a href="https://www.paypal.me/jxmot" target="_blank"><img src=https://img.shields.io/badge/Contribute-PayPal.me-3b29ff.svg></a>
-</p>
-
 # Markdown Hit Counter
 
 This counter is intended for use in GitHub README markdown files. It has the following features:
