@@ -74,11 +74,11 @@ define('VALID_COUNTERS', './counters.json');
 define('LOG_FOLDER', './logs/');
 
 function compasc($a, $b) {
-    return ($a === $b ? 0 : $a < $b ? -1 : 1);
+    return ($a === $b ? 0 : ($a < $b ? -1 : 1));
 }
 
 function compdesc($a, $b) {
-    return ($a === $b ? 0 : $a > $b ? -1 : 1);
+    return ($a === $b ? 0 : ($a > $b ? -1 : 1));
 }
 
 function limitqty($data, $limit) {
